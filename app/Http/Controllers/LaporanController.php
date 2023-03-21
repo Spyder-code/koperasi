@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Tanggal;
+use App\Helpers\Tanggal;
 use App\Models\TransaksiHarian;
 use Illuminate\Support\Facades\DB;
 use App\Models\Anggota;

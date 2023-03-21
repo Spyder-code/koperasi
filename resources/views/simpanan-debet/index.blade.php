@@ -109,7 +109,7 @@
                     @endpermission
                     @permission('download-debet-simpanan')<a href="https://docs.google.com/spreadsheets/d/1di8N5gzGvzpfE0D7pC1WELwvslw7XVx3/export?format=xlsx" class="btn btn-success waves-light waves-effect w-md"><i class="mdi mdi-file-excel"></i>Download Template</a>@endpermission
                     @permission('upload-debet-simpanan')<a href="{{ route('simpanan-debet.upload') }}" class="btn btn-warning waves-light waves-effect w-md"><i class="mdi mdi-cloud-upload"></i> Upload</a>@endpermission
-                    @if(Pembukuan::closeBook('1', '1', ['1', '2', '3']) == '1')
+                    @if(App\Helpers\Pembukuan::closeBook('1', '1', ['1', '2', '3']) == '1')
                     <a href="{{ route('simpanan-debet.close-book') }}" class="btn btn-danger waves-light waves-effect w-md"><i class="fa fa-book"></i> Tutup Buku</a>
                     @endif
                     `);

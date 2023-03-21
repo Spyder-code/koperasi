@@ -17,12 +17,12 @@
         <div class="form-group clearfix">
             <label class="control-label " for="confirm">Divisi *</label>
             <div class="">
-                {!! Form::select('divisi_id', [''=>'']+App\Divisi::where('id', '2')->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
+                {!! Form::select('divisi_id', [''=>'']+App\Models\Divisi::where('id', '2')->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="form-group clearfix anggota">
             <label class="control-label " for="confirm">No Anggota *</label>
-            {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
+            {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Models\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
         </div>
         <div class="form-group clearfix anggota col-8">
             <table class="table">

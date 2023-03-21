@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
 use DataTables;
-use Tanggal;
+use App\Helpers\Tanggal;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserAnggota;
 use App\Models\Periode;
 use App\Exports\AnggotaExport;
-use Illuminate\Support\FacadesAuth;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Session;
 

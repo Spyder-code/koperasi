@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use DataTables;
-use Tanggal;
+use App\Helpers\Tanggal;
 use Session;
-use App\TransaksiHarian;
+use App\Models\TransaksiHarian;
 
 class PeriodeController extends Controller
 {

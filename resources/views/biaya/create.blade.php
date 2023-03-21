@@ -53,7 +53,7 @@
                     <div class="form-group row">
                         <label class="col-4 col-form-label" for="example-input-normal">Divisi Biaya</label>
                         <div class="col-8">
-                            {!! Form::select('divisi_id', [''=>'']+App\Divisi::pluck('name','id')->all(), null, ['class' => $errors->has('divisi_id') ? 'form-control is-invalid' : 'form-control']) !!}
+                            {!! Form::select('divisi_id', [''=>'']+App\Models\Divisi::pluck('name','id')->all(), null, ['class' => $errors->has('divisi_id') ? 'form-control is-invalid' : 'form-control']) !!}
                             @error('divisi_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
