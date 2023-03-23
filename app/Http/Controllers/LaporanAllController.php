@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Tanggal;
 use App\Models\TransaksiHarian;
 use Illuminate\Support\Facades\DB;
-use App\Anggota;
+use App\Models\Anggota;
 use App\Exports\LaporanKasBank;
 use App\Exports\LaporanSimpanan;
 use App\Exports\LaporanPinjaman;

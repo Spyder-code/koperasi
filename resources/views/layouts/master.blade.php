@@ -2,17 +2,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        @php
-            $logo=asset(Storage::url('logo/'));
-        @endphp
         <meta charset="utf-8" />
-        <title>Sistem Informasi Koperasi Karyawan Prasetiyamulya</title>
+        <title>Sistem Informasi Koperasi Simpan Pinjam</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="Sistem Informasi Koperasi Karyawan" name="description" />
         <meta content="Asep IT" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" class="img-fluid" href="{{ $logo.'/logo.png' }}">
+        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ asset('images/logo.png') }}">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App css -->
@@ -43,10 +40,10 @@
                 <div class="topbar-left">
                     <a href="{{ url('/') }}" class="logo">
                         <span>
-                            <img class="img-fluid" src="{{ $logo.'/logo.png' }}" alt="" width="50">
+                            <img class="img-fluid" src="{{ asset('images/logo.png') }}" alt="" width="50">
                         </span>
                         <i>
-                            <img class="img-fluid" src="{{ $logo.'/small_logo.png' }}" alt="" width="50" >
+                            <img class="img-fluid" src="{{ asset('images/logo.png') }}" alt="" width="50" >
                         </i>
                     </a>
                 </div>

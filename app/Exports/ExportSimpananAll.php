@@ -4,7 +4,7 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Illuminate\Support\Facades\DB;
-use App\TransaksiHarian;
+use App\Models\TransaksiHarian;
 
 class ExportSimpananAll implements WithMultipleSheets
 {

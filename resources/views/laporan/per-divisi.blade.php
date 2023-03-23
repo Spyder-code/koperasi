@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group clearfix">
                     <label class="control-label " for="confirm">Nama Divisi *</label>
-                    {!! Form::select('divisi_id', [''=>'Pilih Divisi']+App\Divisi::pluck('name','id')->all(), null, ['class' => 'form-control select2']) !!}
+                    {!! Form::select('divisi_id', [''=>'Pilih Divisi']+App\Models\Divisi::pluck('name','id')->all(), null, ['class' => 'form-control select2']) !!}
                 </div>
                 @permission('search-laporan-divisi')
                 <input type="submit" value="Cari" class="btn btn-primary" name="search">
@@ -76,9 +76,9 @@
                             <td scope="row"></td>
                             <td></td>
                             <td><strong>Saldo Mutasi</strong></td>
-                            <td>{{ Money::stringToRupiah($saldo_debit) }}</td>
-                            <td>{{ Money::stringToRupiah($saldo_kredit) }}</td>
-                            <td>{{ Money::stringToRupiah($saldo_debit - $saldo_kredit) }}</td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($saldo_debit) }}</td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($saldo_kredit) }}</td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($saldo_debit - $saldo_kredit) }}</td>
                         </tr>
                         @php
                             $saldo = $saldo_debit - $saldo_kredit;
@@ -91,9 +91,9 @@
                                 <th scope="row">{{ $no }}</th>
                                 <td>{{ Tanggal::tanggal_id($row->tgl )}}</td>
                                 <td>{{ $row->keterangan }}</td>
-                                <td>{{ Money::stringToRupiah($row->sumDebitAll->sum('nominal')) }}</td>
-                                <td>{{ Money::stringToRupiah($row->sumKreditAll->sum('nominal')) }}</td>
-                                <td>{{ Money::stringToRupiah($saldo) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($row->sumDebitAll->sum('nominal')) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditAll->sum('nominal')) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($saldo) }}</td>
                             </tr>
                             @php
                                 $no++;

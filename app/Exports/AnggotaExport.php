@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Anggota;
+use App\Models\Anggota;
 
 use Maatwebsite\Excel\Concerns\{FromView};
 use Illuminate\Database\Eloquent\Collection;

@@ -20,9 +20,9 @@
                 <td scope="row"></td>
                 <td></td>
                 <td><strong>Saldo Mutasi</strong></td>
-                <td>{{ Money::stringToRupiah($saldo_debit) }}</td>
-                <td>{{ Money::stringToRupiah($saldo_kredit) }}</td>
-                <td>{{ Money::stringToRupiah($saldo_debit - $saldo_kredit) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($saldo_debit) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($saldo_kredit) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($saldo_debit - $saldo_kredit) }}</td>
             </tr>
             @php
                 $saldo = $saldo_debit - $saldo_kredit;
@@ -33,16 +33,16 @@
                 @endphp
                 <tr>
                     <td scope="row">{{ $no }}</td>
-                    <td>{{ Tanggal::tanggal_id($row->tgl )}}</td>
+                    <td>{{ App\Helpers\Tanggal::tanggal_id($row->tgl )}}</td>
                     <td>{{ $row->keterangan }}</td>
-                    <td>{{ Money::stringToRupiah($row->sumDebitAll->sum('nominal')) }}</td>
-                    <td>{{ Money::stringToRupiah($row->sumKreditAll->sum('nominal')) }}</td>
-                    <td>{{ Money::stringToRupiah($saldo) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($row->sumDebitAll->sum('nominal')) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditAll->sum('nominal')) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($saldo) }}</td>
                 </tr>
                 @php
                     $no++;
                 @endphp
-            @endforeach                    
+            @endforeach
         </tbody>
     @endif
 </table>

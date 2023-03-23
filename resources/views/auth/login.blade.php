@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        @php
-            $logo=asset(Storage::url('logo/'));
-        @endphp
         <meta charset="utf-8" />
-        <title>Sistem Informasi Koperasi Karyawan</title>
+        <title>Sistem Informasi Koperasi Simpan Pinjam</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="Aplikasi Koperasi Untuk Memenuhi Kebutuhan Administrasi Di Dalam Koperasi." name="description" />
         <meta content="Asep IT" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ $logo.'/logo.png' }}">
+        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ asset('images/logo.png') }}">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App css -->
@@ -22,9 +19,6 @@
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
 
         <script src="assets/js/modernizr.min.js"></script>
-        @php
-            $logo=asset(Storage::url('logo/'));
-        @endphp
     </head>
 
 
@@ -43,11 +37,11 @@
                                     <div class="account-logo-box">
                                         <h2 class="text-uppercase text-center">
                                             <a href="{{ url('/') }}" class="text-success">
-                                                <span><img class="img-fluid logo-img" src="{{$logo.'/small_logo.png' }}" alt="" width="90"></span>
+                                                <span><img class="img-fluid logo-img" src="{{ asset('images/brand.png') }}" alt="" width="90"></span>
                                             </a>
                                         </h2>
-                                        <h6 class="text-uppercase text-center font-bold mt-4">
-                                            SIGN IN
+                                        <h6 class="text-uppercase text-center font-bold mt-4" style="color: #5293fb">
+                                            SISTEM INFORMASI KOPERASI SIMPAN PINJAM
                                         </h6>
                                     </div>
                                     <div class="account-content">

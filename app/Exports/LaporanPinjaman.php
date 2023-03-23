@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\TransaksiHarian;
+use App\Models\TransaksiHarian;
 use Maatwebsite\Excel\Concerns\{FromView};
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\View\View;

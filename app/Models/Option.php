@@ -18,8 +18,8 @@ class Option extends Model
 
         $options = [
             "site_currency_symbol" => "Rp ",
-            "company_name" => "KOPERASI",
-            "company_address" => "Jalan Malaka Baru RT 01 RW 011 Pondok Kopi Jakarta Timur",
+            "company_name" => "MEDI Software Development",
+            "company_address" => "Surabaya",
             "company_phone" => "",
             "company_email" => "",
             "postal_code" => "",

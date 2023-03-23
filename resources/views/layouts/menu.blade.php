@@ -94,7 +94,7 @@
                     </ul>
                 </li>
                 @endpermission
-                @permission('manage-debet-divisi|manage-kredit-divisi')
+                {{-- @permission('manage-debet-divisi|manage-kredit-divisi')
                 <li class="{{ set_active(['divisi-debet.index', 'divisi-debet.create', 'divisi-debet.edit', 'divisi-debet.upload',
                 'divisi-kredit.index', 'divisi-kredit.create', 'divisi-kredit.edit', 'divisi-kredit.upload'])}}">
                     <a href="javascript: void(0);" class="{{ set_active(['divisi-debet.index', 'divisi-debet.create', 'divisi-debet.edit', 'divisi-debet.upload',
@@ -114,7 +114,7 @@
                         @endpermission
                     </ul>
                 </li>
-                @endpermission
+                @endpermission --}}
                 @permission('manage-laporan-kas-bank|manage-laporan-divisi|manage-laporan-pinjaman-anggota|manage-laporan-simpanan-anggota|
                 manage-laporan-pinjaman-all|manage-laporan-simpanan-all')
                 <li class="menu-title">Laporan</li>
@@ -140,7 +140,7 @@
                 @permission('manage-permissions|manage-user|manage-role|manage-option|manage-module')
                 <li class="menu-title">Management</li>
                 @endpermission
-                @permission('manage-module')
+                {{-- @permission('manage-module')
                 <li class="{{ set_active(['module.index', 'module.create', 'module.edit'])}}">
                     <a href="{{ route('module.index') }}" class="{{ set_active(['module.index', 'module.create', 'module.edit'])}}">
                         <i class="fi-file-add"></i> <span>Module</span>
@@ -160,7 +160,7 @@
                         <i class="fi-help"></i> <span>Role</span>
                     </a>
                 </li>
-                @endpermission
+                @endpermission --}}
                 @permission('manage-user')
                 <li class="{{ set_active(['user.index', 'user.create', 'user.edit'])}}">
                     <a href="{{ route('user.index') }}" class="{{ set_active(['user.index', 'user.create', 'user.edit'])}}">

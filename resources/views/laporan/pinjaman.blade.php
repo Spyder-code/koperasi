@@ -42,7 +42,7 @@
                 @permission('filter-pinjaman-anggota')
                 <div class="form-group clearfix">
                     <label class="control-label " for="confirm">No Anggota *</label>
-                    {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
+                    {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Models\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
                 </div>
                 @endpermission
                 @permission('search-pinjaman-anggota')
@@ -76,7 +76,7 @@
                     <tr>
                         <td><strong>Tanggal Daftar</strong></td>
                         <td>:</td>
-                        <td id="tanggal-daftar">{{ Tanggal::tanggal_id($anggota->tgl_daftar )}}</td>
+                        <td id="tanggal-daftar">{{ App\Helpers\Tanggal::tanggal_id($anggota->tgl_daftar )}}</td>
                     </tr>
                 </table>
             </div>
@@ -206,7 +206,7 @@
                             });
                         }else {
                             $('#result').html(response);
-                            $('#response').html(`<img src="{!! asset('icon-success.png') !!}" alt="" height="50" width="50">`);
+                            $('#response').html(`<img src="{!! asset('images/brand.png') !!}" alt="" height="250" width="250">`);
                         }
                     }
                 });

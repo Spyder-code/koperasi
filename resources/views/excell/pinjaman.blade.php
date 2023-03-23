@@ -29,10 +29,10 @@
                 <td></td>
                 <td>{{ $nik }}</td>
                 <td><strong>Saldo Mutasi</strong></td>
-                <td>{{ Money::stringToRupiah($sum_kredit_pinjaman) }}</td>
-                <td>{{ Money::stringToRupiah($sum_cicilan) }}</td>
-                <td>{{ Money::stringToRupiah($sum_bunga) }}</td>
-                <td>{{ Money::stringToRupiah($saldo) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($sum_kredit_pinjaman) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($sum_cicilan) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($sum_bunga) }}</td>
+                <td>{{ App\Helpers\Money::stringToRupiah($saldo) }}</td>
             </tr>
             @foreach ($transaksi_harian as $row)
                 @php
@@ -40,13 +40,13 @@
                 @endphp
                 <tr>
                     <th scope="row">{{ $no }}</th>
-                    <td>{{ Tanggal::tanggal_id($row->tgl) }}</td>
+                    <td>{{ App\Helpers\Tanggal::tanggal_id($row->tgl) }}</td>
                     <th>{{ $nik }}</th>
                     <td>{{ $row->keterangan }}</td>
-                    <td>{{ Money::stringToRupiah($row->sumKreditPinjaman->sum('nominal')) }}</td>
-                    <td>{{ Money::stringToRupiah($row->sumCicilan->sum('nominal')) }}</td>
-                    <td>{{ Money::stringToRupiah($row->sumBunga->sum('nominal')) }}</td>
-                    <td>{{ Money::stringToRupiah($saldo) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditPinjaman->sum('nominal')) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($row->sumCicilan->sum('nominal')) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($row->sumBunga->sum('nominal')) }}</td>
+                    <td>{{ App\Helpers\Money::stringToRupiah($saldo) }}</td>
                 </tr>
                 @php
                     $no++;

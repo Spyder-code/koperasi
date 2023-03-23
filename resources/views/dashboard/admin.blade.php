@@ -133,7 +133,7 @@
                             <i class="dripicons-arrow-up text-success"></i>
                             <span class="tran-text">{{ $item->keterangan }}</span>
                             <span class="pull-right text-success tran-price">+{{ number_format($item->sumDebitAll->sum('nominal')) }}</span>
-                            <span class="pull-right text-muted">{{ Tanggal::tanggal_id($item->tgl) }}</span>
+                            <span class="pull-right text-muted">{{ App\Helpers\Tanggal::tanggal_id($item->tgl) }}</span>
                             <span class="clearfix"></span>
                         </li>
                     @else
@@ -141,7 +141,7 @@
                             <i class="dripicons-arrow-down text-danger"></i>
                             <span class="tran-text">{{ $item->keterangan }}</span>
                             <span class="pull-right text-danger tran-price">-{{ number_format($item->sumKreditAll->sum('nominal'))}}</span>
-                            <span class="pull-right text-muted">{{ Tanggal::tanggal_id($item->tgl) }}</span>
+                            <span class="pull-right text-muted">{{ App\Helpers\Tanggal::tanggal_id($item->tgl) }}</span>
                             <span class="clearfix"></span>
                         </li>
                     @endif

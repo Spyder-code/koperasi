@@ -17,7 +17,7 @@
         <div class="form-group clearfix">
             <label class="control-label " for="confirm">Divisi *</label>
             <div class="">
-                {!! Form::select('divisi_id', [''=>'']+App\Divisi::whereNotIn('id', ['1', '2'])->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
+                {!! Form::select('divisi_id', [''=>'']+App\Models\Divisi::whereNotIn('id', ['1', '2'])->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
             </div>
         </div>
     </section>

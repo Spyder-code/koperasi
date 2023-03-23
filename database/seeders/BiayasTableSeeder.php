@@ -81,23 +81,5 @@ class BiayasTableSeeder extends Seeder
         $biaya->id = '8';
         $biaya->save();
 
-        $divisi = new Divisi();
-        $divisi->name = 'Kopi';
-        $divisi->save();
-
-        $biaya = new Biaya();
-        $biaya->name = 'Debet Kopi';
-        $biaya->divisi_id = $divisi->id;
-        $biaya->id = '9';
-        $biaya->jenis_biaya = '1';
-        $biaya->save();
-
-        //Pinjaman Uang Ke Koperasi
-        $biaya = new Biaya();
-        $biaya->name = 'Kredit Kopi';
-        $biaya->divisi_id = $divisi->id;
-        $biaya->jenis_biaya = '2';
-        $biaya->id = '10';
-        $biaya->save();
     }
 }
