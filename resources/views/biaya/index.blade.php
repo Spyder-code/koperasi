@@ -37,7 +37,7 @@
                         <th>#ID</th>
                         <th>Nama Biaya</th>
                         <th>Jenis Biaya</th>
-                        <th>Divisi</th>
+                        <th>Kategori</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

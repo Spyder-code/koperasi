@@ -11,13 +11,13 @@
     <div class="col-12">
         <div class="page-title-box">
             <div class="float-left">
-                <h4 class="page-title">Role </h4>
+                <h4 class="page-title">Divisi </h4>
                 <small class="text-danger">Periode : {{ periode()->name }}</small>
             </div>
             <div class="float-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Management</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('permission.index')}}">Role</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('permission.index')}}">Divisi</a></li>
                 </ol>
                 <small class="text-danger">Tahun Buku : {{ periode()->open_date }} - {{ periode()->close_date }}</small>
             </div>
@@ -87,7 +87,7 @@
                         dom: '<"toolbar">frtip',
                     });
         @permission('create-role')
-        $("div.toolbar").html(`<a href="{{ route('role.create') }}" class="btn btn-gradient btn-rounded waves-light waves-effect w-md">Tambah Role</a>`);
+        $("div.toolbar").html(`<a href="{{ route('role.create') }}" class="btn btn-gradient btn-rounded waves-light waves-effect w-md">Tambah Divisi</a>`);
         @endpermission
 
     });

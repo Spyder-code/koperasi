@@ -92,7 +92,7 @@
                             @endphp
                             <tr>
                                 <td scope="row">{{ $no }}</td>
-                                <td>{{ Tanggal::tanggal_id($row->tgl )}}</td>
+                                <td>{{ App\Helpers\Tanggal::tanggal_id($row->tgl )}}</td>
                                 <td>{{ $row->keterangan }}</td>
                                 <td>{{ App\Helpers\Money::stringToRupiah($row->sumDebitAll->sum('nominal')) }}</td>
                                 <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditAll->sum('nominal')) }}</td>

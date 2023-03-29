@@ -4,13 +4,13 @@
     <div class="col-12">
         <div class="page-title-box">
             <div class="float-left">
-                <h4 class="page-title">Role </h4>
+                <h4 class="page-title">Divisi </h4>
                 <small class="text-danger">Periode : {{ periode()->name }}</small>
             </div>
             <div class="float-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Management</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('permission.index')}}">Role</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('permission.index')}}">DIVISI</a></li>
                 <li class="breadcrumb-item active">Ubah </li>
                 </ol>
                 <small class="text-danger">Tahun Buku : {{ periode()->open_date }} - {{ periode()->close_date }}</small>
@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col-6">
         <div class="card-box">
-            <h4 class="m-t-0 header-title">FORM UBAH ROLE</h4>
+            <h4 class="m-t-0 header-title">FORM UBAH DIVISI</h4>
             <div class="p-20">
                 {!! Form::model($role, ['route' => ['role.update', $role->id], 'method'=>'put', 'class' => 'form-horizontal']) !!}
                     @include('role._form')

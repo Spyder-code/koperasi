@@ -15,11 +15,11 @@
                 </li>
                 @endpermission
                 @permission('manage-divisi')
-                <li class="{{ set_active(['divisi.index', 'divisi.create', 'divisi.edit'])}}">
+                {{-- <li class="{{ set_active(['divisi.index', 'divisi.create', 'divisi.edit'])}}">
                     <a href="{{ route('divisi.index') }}" class="{{ set_active(['divisi.index', 'divisi.create', 'divisi.edit'])}}">
                         <i class="fi-layers"></i> <span>Divisi</span>
                     </a>
-                </li>
+                </li> --}}
                 @endpermission
                 @permission('manage-periode')
                 <li class="{{ set_active(['periode.index', 'periode.create', 'periode.edit'])}}">
@@ -28,13 +28,13 @@
                     </a>
                 </li>
                 @endpermission
-                @permission('manage-biaya')
+                {{-- @permission('manage-biaya')
                 <li class="{{ set_active(['biaya.index', 'biaya.create'])}}">
                     <a href="{{ route('biaya.index') }}" class="{{ set_active(['biaya.index', 'biaya.create'])}}">
                         <i class="fa fa-money"></i> <span>Biaya</span>
                     </a>
                 </li>
-                @endpermission
+                @endpermission --}}
                 @permission('manage-debet-simpanan|manage-kredit-simpanan|manage-debet-pinjaman
                 |manage-kredit-pinjaman|manage-debet-divisi|manage-kredit-divisi|manage-copy-saldo')
                 <li class="menu-title">Transaksi</li>
@@ -57,13 +57,13 @@
                         @permission('manage-debet-simpanan')
                         <li class="{{ set_active(['simpanan-debet.index', 'simpanan-debet.create', 'simpanan-debet.edit', 'simpanan-debet.upload'])}}">
                             <a href="{{ route('simpanan-debet.index') }}" class="{{ set_active(['simpanan-debet.index', 'simpanan-debet.create', 'simpanan-debet.edit', 'simpanan-debet.upload'])}}">
-                                Debet
+                                Tambah Saldo
                             </a>
                         </li>
                         @endpermission
                         @permission('manage-kredit-simpanan')
                         <li class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">
-                            <a href="{{ route('simpanan-kredit.index') }}" class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">Kredit</a>
+                            <a href="{{ route('simpanan-kredit.index') }}" class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">Ambil Saldo</a>
                         </li>
                         @endpermission
                     </ul>
@@ -80,14 +80,14 @@
                         @permission('manage-debet-pinjaman')
                         <li class="{{ set_active(['pinjaman-debet.index', 'pinjaman-debet.create', 'pinjaman-debet.edit', 'pinjaman-debet.upload'])}}">
                             <a href="{{ route('pinjaman-debet.index') }}" class="{{ set_active(['pinjaman-debet.index', 'pinjaman-debet.create', 'pinjaman-debet.edit', 'pinjaman-debet.upload'])}}">
-                                Debet
+                                Bayar Angsuran
                             </a>
                         </li>
                         @endpermission
                         @permission('manage-kredit-pinjaman')
                         <li class="{{ set_active(['pinjaman-kredit.index', 'pinjaman-kredit.create', 'pinjaman-kredit.edit', 'pinjaman-kredit.upload'])}}">
                             <a href="{{ route('pinjaman-kredit.index') }}" class="{{ set_active(['pinjaman-kredit.index', 'pinjaman-kredit.create', 'pinjaman-kredit.edit', 'pinjaman-kredit.upload'])}}">
-                                Kredit
+                                Ambil Angsuran
                             </a>
                         </li>
                         @endpermission
@@ -153,14 +153,14 @@
                         <i class="fi-lock"></i> <span>Permission</span>
                     </a>
                 </li>
-                @endpermission
+                @endpermission --}}
                 @permission('manage-role')
                 <li class="{{ set_active(['role.index', 'role.create', 'role.edit'])}}">
                     <a href="{{ route('role.index') }}" class="{{ set_active(['role.index', 'role.create', 'role.edit'])}}">
-                        <i class="fi-help"></i> <span>Role</span>
+                        <i class="fi-help"></i> <span>Divisi</span>
                     </a>
                 </li>
-                @endpermission --}}
+                @endpermission
                 @permission('manage-user')
                 <li class="{{ set_active(['user.index', 'user.create', 'user.edit'])}}">
                     <a href="{{ route('user.index') }}" class="{{ set_active(['user.index', 'user.create', 'user.edit'])}}">

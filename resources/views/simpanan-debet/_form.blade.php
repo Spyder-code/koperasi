@@ -15,16 +15,16 @@
             </div>
         </div>
         <div class="form-group clearfix">
-            <label class="control-label " for="confirm">Divisi *</label>
+            <label class="control-label " for="confirm">Kategori *</label>
             <div class="">
                 {!! Form::select('divisi_id', [''=>'']+App\Models\Divisi::where('id', '1')->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="form-group clearfix anggota">
-            <label class="control-label " for="confirm">No Anggota *</label>
+            <label class="control-label " for="confirm">Nama Anggota *</label>
             {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Models\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
         </div>
-        <div class="form-group clearfix anggota col-8">
+        {{-- <div class="form-group clearfix anggota col-8">
             <table class="table">
                 <tr>
                     <td><strong>Nama Anggota</strong></td>
@@ -47,7 +47,7 @@
                     <td id="tanggal-daftar"></td>
                 </tr>
             </table>
-        </div>
+        </div> --}}
     </section>
     <!-- End Section Page 1 -->
     <!-- Section Page 2 -->

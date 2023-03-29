@@ -7,13 +7,13 @@
     <div class="col-12">
         <div class="page-title-box">
             <div class="float-left">
-                <h4 class="page-title">Role </h4>
+                <h4 class="page-title">Divisi </h4>
                 <small class="text-danger">Periode : {{ periode()->name }}</small>
             </div>
             <div class="float-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Management</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('role.index')}}">Role</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('role.index')}}">Divisi</a></li>
                 <li class="breadcrumb-item active">Tambah </li>
                 </ol>
                 <small class="text-danger">Tahun Buku : {{ periode()->open_date }} - {{ periode()->close_date }}</small>
@@ -26,7 +26,7 @@
 <div class="row">
     <div class="col-6">
         <div class="card-box">
-            <h4 class="m-t-0 header-title">FORM TAMBAH Role</h4>
+            <h4 class="m-t-0 header-title">FORM TAMBAH DIVISI</h4>
             <div class="p-20">
                 {!! Form::open(['url' => route('role.store'), 'class' => 'form-horizontal'])!!}
                     @include('role._form')

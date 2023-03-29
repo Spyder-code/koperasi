@@ -58,13 +58,13 @@
                 <div class="col-sm-6">
                     <div class="text-center mt-3">
                         <h6 class="font-normal text-muted font-14">Total Kredit</h6>
-                        <h6 class="font-18"><i class="mdi mdi-arrow-down-bold-hexagon-outline text-danger"></i> <span class="text-dark">{{ number_format($saldo_kredit) }}</span> </h6>
+                        <h6 class="font-18"><i class="mdi mdi-arrow-down-bold-hexagon-outline text-success"></i> <span class="text-dark">{{ number_format($saldo_kredit) }}</span> </h6>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-center mt-3">
                         <h6 class="font-normal text-muted font-14">Total Debit</h6>
-                        <h6 class="font-18"><i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i> <span class="text-dark">{{ number_format($saldo_debit) }}</span> </h6>
+                        <h6 class="font-18"><i class="mdi mdi-arrow-up-bold-hexagon-outline text-primary"></i> <span class="text-dark">{{ number_format($saldo_debit) }}</span> </h6>
                     </div>
                 </div>
             </div>
@@ -181,6 +181,11 @@
             labels: {!! json_encode($months) !!},
             datasets: [
                 {
+                    label: "Kredit",
+                    backgroundColor: "green",
+                    data: {!! json_encode($kreditAll) !!}
+                },
+                {
                     label: "Debit",
                     backgroundColor: "blue",
                     borderColor: [
@@ -189,11 +194,6 @@
                     ],
                     data: {!! json_encode($debitAll) !!}
                 },
-                {
-                    label: "Kredit",
-                    backgroundColor: "red",
-                    data: {!! json_encode($kreditAll) !!}
-                }
             ]
     };
 
