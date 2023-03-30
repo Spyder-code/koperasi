@@ -52,6 +52,9 @@
 <script src="{{ asset('js/jquery.maskMoney.js')}}" type="text/javascript"></script>
 <script src="{{ asset('plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('plugins/bootstrap-select/js/bootstrap-select.js') }}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/id.min.js"></script>
 <script>
     $(function(){
         $(".select2").select2();
@@ -90,6 +93,45 @@
             startDate: start,
             endDate   : end,
             orientation: 'bottom'
+        });
+
+        console.log(moment('2023-01-01').add(3, 'months').format('DD MM YYYY'));
+        function hitungCicilan() {
+            var count = $('#lama_cicilan').val();
+            var nominal = $('#nominal').val();
+            var tgl = $('#tgl').val();
+            var fee = 0.02;
+            var html = '';
+            if(count>=9){
+                fee = 0.03;
+            }
+            const parts = tgl.split('-'); // split the date string by '-' character
+            tgl = `${parts[2]}-${parts[1]}-${parts[0]}`; // rearrange the parts to get yyyy-mm-dd format
+            const numericString = nominal.replace(/[^\d]/g, ''); // remove all non-numeric characters
+            const rupiah = parseInt(numericString); // parse the numeric string to an integer value
+            var total = (rupiah * fee) + rupiah;
+            var price = Math.ceil(total / count);
+            for (let i = 1; i <= count; i++) {
+                html += `<tr>
+                            <td class="text-center">${i}</td>
+                            <td>${moment(tgl).add(i, 'months').format('DD/MM/YYYY')}</td>
+                            <td>Rp. ${price.toLocaleString('en-US')}</td>
+                        </tr>`;
+            }
+            html += `<tr>
+                        <td style="font-weight:bold" class="text-center" colspan="2">Total Nominal Angsuran</td>
+                        <td style="font-weight:bold">Rp. ${total.toLocaleString('en-US')}</td>
+                    </tr>`
+
+            $('#cicilan-skema').html(html);
+        }
+        $('#lama_cicilan').change(function (e) {
+            e.preventDefault();
+            hitungCicilan();
+        });
+
+        $('#nominal').keyup(function (e) {
+            hitungCicilan();
         });
     })
 </script>

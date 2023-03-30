@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\TransaksiHarian;
 use Illuminate\Http\Request;
 use DataTables;
-use Tanggal;
+use App\Helpers\Tanggal;
 use Illuminate\Support\Facades\Input;
 use App\Models\Anggota;
 use App\Models\TransaksiHarianAnggota;
 use App\Models\TransaksiHarianBiaya;
 use App\Models\Periode;
-use Money;
+use App\Helpers\Money;
 use App\Models\TransaksiPinjaman;
 
 class TransaksiHarianController extends Controller
@@ -212,7 +212,7 @@ class TransaksiHarianController extends Controller
     {
         if($request->ajax())
         {
-            $anggota_id = Input::get('anggota_id');
+            $anggota_id = $request->anggota_id;
             $anggota = Anggota::find($anggota_id);
             if($anggota->status == '1')
             {

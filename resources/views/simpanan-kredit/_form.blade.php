@@ -1,6 +1,6 @@
 <div>
     <!-- Section Page 1 -->
-    <h3>Divisi</h3>
+    <h3>Informasi</h3>
     <section>
         <div class="form-group clearfix">
             <label class="control-label " for="userName">Tanggal Transaksi</label>
@@ -16,9 +16,11 @@
         </div>
         <div class="form-group clearfix">
             <label class="control-label " for="confirm">Kategori *</label>
-            <div class="">
+            <input type="hidden" name="divisi_id" value="1">
+            <input type="text" class="form-control" value="SIMPANAN" disabled>
+            {{-- <div class="">
                 {!! Form::select('divisi_id', [''=>'']+App\Models\Divisi::where('id', '1')->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
-            </div>
+            </div> --}}
         </div>
         <div class="form-group clearfix anggota">
             <label class="control-label " for="confirm">Nama Anggota *</label>
@@ -54,10 +56,11 @@
     <h3>Transaksi</h3>
     <section>
         <div class="form-group clearfix">
-            <label class="control-label" for="name"> Transaksi</label>
+            <input type="hidden" name="jenis_transaksi" value="2">
+            {{-- <label class="control-label" for="name"> Transaksi</label>
             <div class="">
                 {!! Form::select('jenis_transaksi', ['2' => 'Kredit'], null, ['placeholder' => '<---Jenis Transaksi -->', 'class' => 'form-control']) !!}
-            </div>
+            </div> --}}
         </div>
         <!-- End Show Jenis Transaksi == 1 -->
         <!-- Show If Divisi ID == 1 AND Jenis Transaksi == 2 -->
