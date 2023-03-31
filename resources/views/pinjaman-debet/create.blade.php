@@ -35,7 +35,7 @@
             </p>
             <form id="basic-form" action="{{ route('pinjaman-debet.store') }}" method="POST">
                 @csrf
-                @include('pinjaman-debet._form')
+                @include('pinjaman-debet._form',['anggota'=>$anggota])
             </form>
         </div>
     </div>
@@ -55,6 +55,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/id.min.js"></script>
 <script>
+        const check = (count) => {
+            var animals = $('[name="pinjaman_count"]');
+            var total_bayar = 0;
+            var bunga = $('#nominal_bunga_total').val();
+            var fee = Math.ceil(parseInt(bunga) / count);
+            var bunga_total = 0;
+            console.log(fee);
+            $.each(animals, function() {
+                var $this = $(this);
+                if($this.is(":checked")) {
+                    total_bayar += parseInt($this.val());
+                    bunga_total += fee;
+                }
+            });
+            $('#nominal_pinjaman').val('Rp. '+total_bayar.toLocaleString('en-US'));
+            $('#nominal_bunga').val(bunga_total);
+        }
     $(function(){
 
         $(".select2").select2();
@@ -74,11 +91,13 @@
                 },
                 success: function(data)
                 {
-                    console.log(data)
                     $('#nama-anggota').text(data.nama)
                     $('#nama-inisial').text(data.inisial)
                     $('#status-anggota').text(data.status)
                     $('#tanggal-daftar').text(data.tgl_daftar)
+                    $.each(data.pinjaman, function (indexInArray, item) {
+                        hitungCicilan(item.lama_cicilan,item.jumlah_pinjaman,item.angsuran_pinjaman,item.periode);
+                    });
                 }
             });
         });
@@ -95,44 +114,35 @@
             orientation: 'bottom'
         });
 
-        console.log(moment('2023-01-01').add(3, 'months').format('DD MM YYYY'));
-        function hitungCicilan() {
-            var count = $('#lama_cicilan').val();
-            var nominal = $('#nominal').val();
-            var tgl = $('#tgl').val();
+        function hitungCicilan(count,nominal,angsuran,tgl) {
             var fee = 0.02;
             var html = '';
             if(count>=9){
                 fee = 0.03;
             }
-            const parts = tgl.split('-'); // split the date string by '-' character
-            tgl = `${parts[2]}-${parts[1]}-${parts[0]}`; // rearrange the parts to get yyyy-mm-dd format
-            const numericString = nominal.replace(/[^\d]/g, ''); // remove all non-numeric characters
-            const rupiah = parseInt(numericString); // parse the numeric string to an integer value
-            var total = (rupiah * fee) + rupiah;
+            const rupiah = parseInt(nominal); // parse the numeric string to an integer value
+            var nominal_bunga = rupiah * fee;
+            var total = nominal_bunga + rupiah;
             var price = Math.ceil(total / count);
+            var lunas = parseInt(angsuran) / price;
             for (let i = 1; i <= count; i++) {
-                html += `<tr>
-                            <td class="text-center">${i}</td>
-                            <td>${moment(tgl).add(i, 'months').format('DD/MM/YYYY')}</td>
-                            <td>Rp. ${price.toLocaleString('en-US')}</td>
-                        </tr>`;
+                var inp = '';
+                var status = 'Lunas';
+                if (lunas<=0) {
+                    inp = `<input type="checkbox" class="pinjaman_id" onchange="check(${count})" name="pinjaman_count" value="${price}"/>`;
+                    status = 'Belum Bayar';
+                }
+                html += '<tr><td class="text-center">'+inp+'</td><td>'+moment(tgl).add(i, 'months').format('DD/MM/YYYY')+'</td><td>Rp. '+price.toLocaleString('en-US')+'</td><td>'+status+'</td></tr>';
+                lunas--;
             }
             html += `<tr>
                         <td style="font-weight:bold" class="text-center" colspan="2">Total Nominal Angsuran</td>
                         <td style="font-weight:bold">Rp. ${total.toLocaleString('en-US')}</td>
                     </tr>`
 
-            $('#cicilan-skema').html(html);
+            $('#cicilan-skema').append(html);
+            $('#nominal_bunga_total').val(nominal_bunga);
         }
-        $('#lama_cicilan').change(function (e) {
-            e.preventDefault();
-            hitungCicilan();
-        });
-
-        $('#nominal').keyup(function (e) {
-            hitungCicilan();
-        });
     })
 </script>
 @endsection

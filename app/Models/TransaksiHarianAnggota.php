@@ -19,9 +19,8 @@ class TransaksiHarianAnggota extends Model
 	}
 
 
-	/*public function transaksi_harian()
+	public function transaksi_harian()
 	{
-		return $this->hasOne('App\TransaksiHarian');
+		return $this->belongsTo(TransaksiHarian::class,'transaksi_harian_id');
 	}
-	*/
 }

@@ -22,7 +22,7 @@
     </head>
 
 
-    <body class="bg-accpunt-pages">
+    <body class="bg-accpunt-pagess" style="background-color: #c35d5d">
 
         <!-- HOME -->
         <section>

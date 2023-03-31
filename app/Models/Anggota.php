@@ -16,4 +16,9 @@ class Anggota extends Model
         'status',
         'homebase'
     ];
+
+    public function transaksi_harian_anggota()
+    {
+        return $this->hasMany(TransaksiHarianAnggota::class,'anggota_id');
+    }
 }

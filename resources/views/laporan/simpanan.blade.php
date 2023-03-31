@@ -52,7 +52,7 @@
             </form>
         </div>
     </div>
-    @if (!empty($anggota))
+    {{-- @if (!empty($anggota))
         <div class="col-lg-6 anggota">
             <div class="card-box">
                 <table class="table">
@@ -106,7 +106,7 @@
                 </table>
             </div>
         </div>
-    @endif
+    @endif --}}
 </div>
 <div id="result">
 

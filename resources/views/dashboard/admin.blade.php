@@ -57,13 +57,13 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="text-center mt-3">
-                        <h6 class="font-normal text-muted font-14">Total Kredit</h6>
+                        <h6 class="font-normal text-muted font-14">Total Pinjaman</h6>
                         <h6 class="font-18"><i class="mdi mdi-arrow-down-bold-hexagon-outline text-success"></i> <span class="text-dark">{{ number_format($saldo_kredit) }}</span> </h6>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-center mt-3">
-                        <h6 class="font-normal text-muted font-14">Total Debit</h6>
+                        <h6 class="font-normal text-muted font-14">Total Simpanan</h6>
                         <h6 class="font-18"><i class="mdi mdi-arrow-up-bold-hexagon-outline text-primary"></i> <span class="text-dark">{{ number_format($saldo_debit) }}</span> </h6>
                     </div>
                 </div>
@@ -181,12 +181,12 @@
             labels: {!! json_encode($months) !!},
             datasets: [
                 {
-                    label: "Kredit",
+                    label: "Pinjaman",
                     backgroundColor: "green",
                     data: {!! json_encode($kreditAll) !!}
                 },
                 {
-                    label: "Debit",
+                    label: "Simpanan",
                     backgroundColor: "blue",
                     borderColor: [
                         'rgba(54, 162, 235, 1)',

@@ -10,11 +10,13 @@ class TransaksiPinjaman extends Model
 
     protected $fillable = [
         'transaksi_harian_biaya_id',
-        'lama_cicilan'
+        'lama_cicilan',
+        'status',
+        'angsuran_pinjaman',
     ];
 
     public function transaksi_harian_biaya()
     {
-        return $this->hasOne(TransaksiHarianBiaya::class);
+        return $this->belongsTo(TransaksiHarianBiaya::class);
     }
 }

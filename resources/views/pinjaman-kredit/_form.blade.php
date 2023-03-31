@@ -55,8 +55,9 @@
     <!-- Section Page 2 -->
     <h3>Transaksi</h3>
     <section>
+        <input type="hidden" name="jenis_transaksi" value="2">
+        <input type="hidden" name="bunga" id="bunga">
         <div class="form-group clearfix">
-            <input type="hidden" name="jenis_transaksi" value="2">
             {{-- <label class="control-label" for="name"> Transaksi</label>
             <div class="">
                 {!! Form::select('jenis_transaksi', ['2' => 'Kredit'], null, ['placeholder' => '<---Jenis Transaksi -->', 'class' => 'form-control']) !!}

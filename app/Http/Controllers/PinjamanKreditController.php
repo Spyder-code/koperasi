@@ -142,6 +142,10 @@ class PinjamanKreditController extends Controller
             $transaksiPinjaman = new TransaksiPinjaman();
             $transaksiPinjaman->transaksi_harian_biaya_id = $transaksi_biaya->id;
             $transaksiPinjaman->lama_cicilan = $request->lama_cicilan;
+            $transaksiPinjaman->anggota_id = $request->anggota_id;
+            $transaksiPinjaman->bunga = $request->bunga;
+            $transaksiPinjaman->periode = Tanggal::convert_tanggal($request->tgl);
+            $transaksiPinjaman->jumlah_pinjaman = Money::rupiahToString($request->nominal);
             $transaksiPinjaman->save();
 
             Session::flash("flash_notification", [

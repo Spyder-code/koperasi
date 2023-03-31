@@ -124,6 +124,7 @@
                     </tr>`
 
             $('#cicilan-skema').html(html);
+            $('#bunga').val(fee);
         }
         $('#lama_cicilan').change(function (e) {
             e.preventDefault();

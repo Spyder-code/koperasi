@@ -22,10 +22,17 @@
                 {!! Form::select('divisi_id', [''=>'']+App\Models\Divisi::where('id', '2')->pluck('name','id')->all(), null, ['class' => 'form-control']) !!}
             </div> --}}
         </div>
+        @if (!empty($anggota))
+        <div class="form-group clearfix anggota">
+            <label class="control-label " for="confirm">No Anggota *</label>
+            {!! Form::select('anggota_id',[''=>'Pilih Anggota']+$anggota, null, ['class' => 'form-control select2', 'id'=>'anggota_id']) !!}
+        </div>
+        @else
         <div class="form-group clearfix anggota">
             <label class="control-label " for="confirm">No Anggota *</label>
             {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Models\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
         </div>
+        @endif
         {{-- <div class="form-group clearfix anggota col-8">
             <table class="table">
                 <tr>
@@ -57,6 +64,10 @@
     <section>
         <div class="form-group clearfix">
             <input type="hidden" name="jenis_transaksi" value="1">
+            <input type="hidden" name="nominal_bunga" id="nominal_bunga">
+            <input type="hidden" name="nominal_bunga_total" id="nominal_bunga_total">
+            <input type="hidden" class="form-control" name="id_biaya_bunga_pinjaman" value="7">
+            <input type="hidden" class="form-control" name="id_biaya_pinjaman" value="6">
             {{-- <label class="control-label" for="name"> Transaksi</label>
             <div class="">
                 {!! Form::select('jenis_transaksi', ['1' => 'Debet'], null, ['placeholder' => '<---Jenis Transaksi -->', 'class' => 'form-control']) !!}
@@ -65,20 +76,40 @@
         <!-- End Show Jenis Transaksi == 1 -->
         <!-- Show If Divisi ID == 2 AND JENIS TRANSAKSI == 1 -->
         <div id="pinjam-debet">
-            <div class="form-group clearfix">
+            {{-- <div class="form-group clearfix">
                 <label for="Pokok" class="control-label">Nominal</label>
                 <div class="">
                     <input type="hidden" class="form-control" name="id_biaya_pinjaman" value="6">
                     <input type="text" class="form-control biaya" name="nominal_pinjaman" value="{{ old('nominal_pinjaman', $nominal_pinjaman ?? null) }}">
                 </div>
+            </div> --}}
+            <div class="form-group">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Pilih Angsuran</th>
+                            <th>Jatuh Tempo Bayar Angsuran</th>
+                            <th>Jumlah Nominal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cicilan-skema">
+                    </tbody>
+                </table>
             </div>
             <div class="form-group clearfix">
+                <label for="Pokok" class="control-label">Total Pembayaran Angsuran</label>
+                <div class="">
+                    <input type="text" class="form-control biaya" name="nominal_pinjaman" id="nominal_pinjaman" value="{{ old('nominal_pinjaman', $nominal_pinjaman ?? null) }}">
+                </div>
+            </div>
+            {{-- <div class="form-group clearfix">
                 <label for="Pokok" class="control-label">Bunga</label>
                 <div class="">
                     <input type="hidden" class="form-control" name="id_biaya_bunga_pinjaman" value="7">
                     <input type="text" class="form-control biaya" name="nominal_bunga" value="{{ old('nominal_bunga', $nominal_bunga ?? null) }}">
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- End Show If Divisi ID == 2 AND JENIS TRANSAKSI == 1 -->
     </section>

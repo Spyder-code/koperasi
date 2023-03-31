@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Excel;
 use File;
 use App\Models\Anggota;
-
+use App\Models\TransaksiPinjaman;
 
 class PinjamanDebetController extends Controller
 {
@@ -95,7 +95,10 @@ class PinjamanDebetController extends Controller
         //
         if (\Auth::user()->isAbleTo('create-debet-pinjaman')) {
             # code...
-            return view('pinjaman-debet.create');
+            $anggota = array();
+            $data = TransaksiPinjaman::where('status',0)->pluck('anggota_id');
+            $anggota = Anggota::whereIn('id',$data)->pluck('nama','id')->all();
+            return view('pinjaman-debet.create', compact('anggota'));
         } else {
             # code...
             return redirect()->back()->with('error', __('Permission denied.'));
@@ -119,7 +122,8 @@ class PinjamanDebetController extends Controller
                 'jenis_transaksi' => 'required'
             ]);
 
-            //Save Transaction Kopkar
+            $nominal = str_replace(['.',','],'',Money::rupiahToString($request->nominal_pinjaman));
+            //Save Transaction
             $periode = Periode::where('status', '1')->first();
             $transaksiHarian = new TransaksiHarian();
             $transaksiHarian->tgl = Tanggal::convert_tanggal($request->tgl);
@@ -130,7 +134,7 @@ class PinjamanDebetController extends Controller
             $transaksiHarian->periode_id = $periode->id;
             $transaksiHarian->save();
 
-            //Save Transation Member Kopkar
+            //Save Transation Member
             $transaksi_harian_anggota = new TransaksiHarianAnggota();
             $transaksi_harian_anggota->transaksi_harian_id = $transaksiHarian->id;
             $transaksi_harian_anggota->anggota_id = $request->anggota_id;
@@ -139,15 +143,26 @@ class PinjamanDebetController extends Controller
             $transaksi_biaya = new TransaksiHarianBiaya();
             $transaksi_biaya->biaya_id = $request->id_biaya_pinjaman;
             $transaksi_biaya->transaksi_harian_id = $transaksiHarian->id;
-            $transaksi_biaya->nominal = Money::rupiahToString($request->nominal_pinjaman);
+            $transaksi_biaya->nominal = $nominal;
             $transaksi_biaya->save();
 
             $transaksi_biaya = new TransaksiHarianBiaya();
             $transaksi_biaya->biaya_id = $request->id_biaya_bunga_pinjaman;
             $transaksi_biaya->transaksi_harian_id = $transaksiHarian->id;
-            $transaksi_biaya->nominal = Money::rupiahToString($request->nominal_bunga);
+            $transaksi_biaya->nominal = str_replace([',','.'],'',$request->nominal_bunga);
             $transaksi_biaya->save();
 
+            $pinjaman = TransaksiPinjaman::where('status',0)->where('anggota_id',$request->anggota_id)->first();
+            $status = 0;
+            $nom = $pinjaman->angsuran_pinjaman + (int)$nominal;
+            if($nom>=$pinjaman->jumlah_pinjaman){
+                $status = 1;
+            }
+
+            $pinjaman->update([
+                'status' => $status,
+                'angsuran_pinjaman' => $nom
+            ]);
             Session::flash("flash_notification", [
                 "level" => "success",
                 "message" => "Berhasil Menambah Data Transaksi !!!"
@@ -238,11 +253,12 @@ class PinjamanDebetController extends Controller
             $transaksi_harian_anggota->update();
 
             $transaksi_biaya = TransaksiHarianBiaya::where('transaksi_harian_id', $id)->where('biaya_id', '6')->first();
-            $transaksi_biaya->nominal = Money::rupiahToString($request->nominal_pinjaman);
+            $transaksi_biaya->nominal = str_replace([',','.'],'',Money::rupiahToString($request->nominal_pinjaman));
             $transaksi_biaya->update();
 
+
             $transaksi_biaya = TransaksiHarianBiaya::where('transaksi_harian_id', $id)->where('biaya_id', '7')->first();
-            $transaksi_biaya->nominal = Money::rupiahToString($request->nominal_bunga);
+            // $transaksi_biaya->nominal = Money::rupiahToString($request->nominal_bunga);
             $transaksi_biaya->update();
 
             Session::flash("flash_notification", [

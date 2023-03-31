@@ -221,7 +221,11 @@ class TransaksiHarianController extends Controller
                 $anggota->status = 'None Aktif';
             }
             $anggota->tgl_daftar = Tanggal::tanggal_id($anggota->tgl_daftar);
-            return response()->json($anggota);
+            $pinjaman = TransaksiPinjaman::where('anggota_id',$request->anggota_id)->where('status',0)->get();
+            return response()->json([
+                'anggota' => $anggota,
+                'pinjaman' => $pinjaman
+            ]);
         }
     }
 }

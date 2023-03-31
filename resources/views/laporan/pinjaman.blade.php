@@ -54,7 +54,7 @@
             </form>
         </div>
     </div>
-    @if (!empty($anggota))
+    {{-- @if (!empty($anggota))
         <div class="col-lg-6 anggota">
             <div class="card-box">
                 <table class="table">
@@ -108,7 +108,7 @@
                 </table>
             </div>
         </div>
-    @endif
+    @endif --}}
 </div>
 <div id="result"></div>
 <div id="loader" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="false" style="display: none;">

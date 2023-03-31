@@ -74,7 +74,7 @@
                 { data: 'id', name: 'id' },
                 { data: 'nik', name: 'nik' },
                 { data: 'nama', name: 'nama' },
-                { data: 'inisial', name: 'inisial' },
+                { data: 'inisial', name: 'inisial', visible:false },
                 { data: 'tgl_daftar', name: 'tgl_daftar' },
                 { data: 'homebase', name: 'homebase' },
                 { data: 'status', name: 'status', orderable: false, searchable: false },
