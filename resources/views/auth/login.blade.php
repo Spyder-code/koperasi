@@ -1,3 +1,8 @@
+@php
+$logo=asset(Storage::url('logo/logo.png'));
+$profile=asset(Storage::url('avatar/'));
+$users=\Auth::user();
+@endphp
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ asset('images/logo.png') }}">
+        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ $logo }}">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App css -->
@@ -37,7 +42,7 @@
                                     <div class="account-logo-box">
                                         <h2 class="text-uppercase text-center">
                                             <a href="{{ url('/') }}" class="text-success">
-                                                <span><img class="img-fluid logo-img" src="{{ asset('images/brand.png') }}" alt="" width="90"></span>
+                                                <span><img class="img-fluid logo-img" src="{{ $logo }}" alt="" width="90"></span>
                                             </a>
                                         </h2>
                                         <h6 class="text-uppercase text-center font-bold mt-4" style="color: #5293fb">
