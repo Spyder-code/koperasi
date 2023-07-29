@@ -135,7 +135,7 @@
                 <li><a href="{{ route('laporan.pinjaman') }}"><i class="fi-file"></i> <span>Pinjaman Anggota</span> </a></li>
                 @endpermission
                 @permission('manage-laporan-divisi')
-                <li><a href="{{ route('laporan.per-divisi') }}"><i class="fi-file"></i> <span>Laporan Per Divisi</span> </a></li>
+                <li><a href="{{ route('laporan.per-divisi') }}"><i class="fi-file"></i> <span>Laporan Transaksi</span> </a></li>
                 @endpermission
                 @permission('manage-permissions|manage-user|manage-role|manage-option|manage-module')
                 <li class="menu-title">Management</li>

@@ -109,4 +109,12 @@ class TransaksiHarian extends Model
         return $this->hasOne(TransaksiHarianAnggota::class, 'transaksi_harian_id');
     }
 
+    public function sumDenda()
+    {
+        return $this->hasMany(TransaksiHarianBiaya::class)->with('biaya')
+            ->whereHas('biaya', function($query){
+                $query->where('biaya_id', '9');
+            });
+    }
+
 }

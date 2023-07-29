@@ -10,6 +10,7 @@ use Options;
 use App\Models\Periode;
 use App\Models\TransaksiHarian;
 use App\Models\ActivityLog;
+use App\Models\TransaksiPinjaman;
 use App\Models\UserAnggota;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,7 @@ class HomeController extends Controller
         $status_anggota = [$anggota_aktif, $anggota_disable];
         if($user->roles->pluck( 'name' )->contains( 'admin' ) || $user->roles->pluck( 'name' )->contains( 'ketua') || $user->roles->pluck( 'name' )->contains( 'operator' ))
         {
+            $transaksi_pinjam = TransaksiPinjaman::select('id','status')->get();
             $transaksi_harian = TransaksiHarian::with(['sumKreditAll', 'sumDebitAll'])
                 ->select(['id', 'tgl', 'keterangan', 'jenis_transaksi'])
                 ->orderBy('tgl', 'DESC')
@@ -49,21 +51,27 @@ class HomeController extends Controller
             $sum_pokok = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
-                        ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
                         ->where('transaksi_harian_biayas.biaya_id', '1')
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
             $sum_wajib = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
-                        ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
                         ->where('transaksi_harian_biayas.biaya_id', '2')
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
             $sum_sukarela = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
-                        ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
                         ->where('transaksi_harian_biayas.biaya_id', '3')
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -77,10 +85,26 @@ class HomeController extends Controller
             $debet_pinjaman = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
-                        ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harian_biayas.biaya_id', '8')
+                        ->where('divisi_id', '2')
+                        ->sum('transaksi_harian_biayas.nominal');
+            $jt_pelunasan = TransaksiPinjaman::whereMonth('periode',date('m'))
+                        ->whereYear('periode',date('Y'))
+                        ->where('status',0  )
+                        ->sum('angsuran_bulanan');
+            $jt_pelunasan_dibayar = DB::table('transaksi_harians')
+                        ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
+                        ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
                         ->where('transaksi_harian_biayas.biaya_id', '6')
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
+
             $bunga_pinjaman = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
@@ -95,14 +119,36 @@ class HomeController extends Controller
                         ->where('transaksi_harian_biayas.biaya_id', '8')
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
-            $saldo_kredit = DB::table('transaksi_harians')
+            $kas_kredit = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
-                        ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
                         ->where('transaksi_harians.jenis_transaksi', 2)
+                        ->where('transaksi_harians.jenis_pembayaran', 1)
                         ->sum('transaksi_harian_biayas.nominal');
-            $saldo_debit = DB::table('transaksi_harians')
+            $kas_debit = DB::table('transaksi_harians')
                         ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
-                        ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.jenis_transaksi', 1)
+                        ->where('transaksi_harians.jenis_pembayaran', 1)
+                        ->sum('transaksi_harian_biayas.nominal');
+            $bank_kredit = DB::table('transaksi_harians')
+                        ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.jenis_transaksi', 2)
+                        ->where('transaksi_harians.jenis_pembayaran', 2)
+                        ->sum('transaksi_harian_biayas.nominal');
+            $bank_debit = DB::table('transaksi_harians')
+                        ->join('transaksi_harian_biayas', 'transaksi_harians.id', '=', 'transaksi_harian_biayas.transaksi_harian_id')
+                        // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
+                        ->whereMonth('transaksi_harians.tgl',date('m'))
+                        ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.jenis_pembayaran', 2)
                         ->where('transaksi_harians.jenis_transaksi', 1)
                         ->sum('transaksi_harian_biayas.nominal');
             $countAnggota = Anggota::select()->count();
@@ -157,9 +203,7 @@ class HomeController extends Controller
             {
                 array_push($kreditAll, $tr_kredit->sums);
             }
-            return view('dashboard.admin')->with(compact('countAnggota', 'countDivisi', 'periode', 'sum_pokok', 'sum_wajib', 'sum_sukarela', 'kredit_simpanan',
-                    'debet_pinjaman', 'bunga_pinjaman', 'kredit_pinjaman', 'transaksi_harian', 'activity_log', 'saldo_kredit', 'saldo_debit', 'status_anggota',
-                'months', 'debitAll', 'kreditAll'));
+            return view('dashboard.admin')->with(compact('countAnggota', 'countDivisi', 'periode', 'sum_pokok', 'sum_wajib', 'sum_sukarela', 'kredit_simpanan', 'debet_pinjaman', 'bunga_pinjaman', 'kredit_pinjaman', 'transaksi_harian', 'activity_log','status_anggota', 'months', 'debitAll', 'kreditAll','jt_pelunasan','jt_pelunasan_dibayar','anggota_aktif','anggota_disable','transaksi_pinjam','kas_debit','kas_kredit','bank_debit','bank_kredit'));
         }
         elseif($user->roles->pluck( 'name' )->contains( 'member' ))
         {

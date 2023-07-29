@@ -74,7 +74,6 @@
                 },
                 success: function(data)
                 {
-                    console.log(data)
                     $('#nama-anggota').text(data.nama)
                     $('#nama-inisial').text(data.inisial)
                     $('#status-anggota').text(data.status)
@@ -95,7 +94,6 @@
             orientation: 'bottom'
         });
 
-        console.log(moment('2023-01-01').add(3, 'months').format('DD MM YYYY'));
         function hitungCicilan() {
             var count = $('#lama_cicilan').val();
             var nominal = $('#nominal').val();
@@ -125,6 +123,7 @@
 
             $('#cicilan-skema').html(html);
             $('#bunga').val(fee);
+            $('#angsuran_bulanan').val(price);
         }
         $('#lama_cicilan').change(function (e) {
             e.preventDefault();

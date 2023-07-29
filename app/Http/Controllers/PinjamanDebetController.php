@@ -34,7 +34,7 @@ class PinjamanDebetController extends Controller
                 $transaksiHarian = TransaksiHarian::with([
                     'divisi', 'nama_anggota' => function ($sql) {
                         $sql->with('anggota');
-                    }, 'sumBunga', 'sumCicilan'
+                    }, 'sumBunga', 'sumCicilan', 'sumDenda'
                 ])
                     ->where('divisi_id', '2')
                     ->where('jenis_transaksi', '1');
@@ -64,6 +64,9 @@ class PinjamanDebetController extends Controller
                     })
                     ->editColumn('sumBunga', function ($transaksiHarian) {
                         return Money::stringToRupiah($transaksiHarian->sumBunga->sum('nominal'));
+                    })
+                    ->editColumn('sumDenda', function ($transaksiHarian) {
+                        return Money::stringToRupiah($transaksiHarian->sumDenda->sum('nominal'));
                     })
                     ->editColumn('sumCicilan', function ($transaksiHarian) {
                         return Money::stringToRupiah($transaksiHarian->sumCicilan->sum('nominal'));
@@ -122,7 +125,8 @@ class PinjamanDebetController extends Controller
                 'jenis_transaksi' => 'required'
             ]);
 
-            $nominal = str_replace(['.',','],'',Money::rupiahToString($request->nominal_pinjaman));
+            // $nominal = str_replace(['.',','],'',Money::rupiahToString($request->nominal_pinjaman));
+            $nominal = $request->pinjaman_count;
             //Save Transaction
             $periode = Periode::where('status', '1')->first();
             $transaksiHarian = new TransaksiHarian();
@@ -152,6 +156,14 @@ class PinjamanDebetController extends Controller
             $transaksi_biaya->nominal = str_replace([',','.'],'',$request->nominal_bunga);
             $transaksi_biaya->save();
 
+            if((int)$request->denda>0){
+                $transaksi_biaya = new TransaksiHarianBiaya();
+                $transaksi_biaya->biaya_id = 9;
+                $transaksi_biaya->transaksi_harian_id = $transaksiHarian->id;
+                $transaksi_biaya->nominal = $request->denda;
+                $transaksi_biaya->save();
+            }
+
             $pinjaman = TransaksiPinjaman::where('status',0)->where('anggota_id',$request->anggota_id)->first();
             $status = 0;
             $nom = $pinjaman->angsuran_pinjaman + (int)$nominal;
@@ -161,7 +173,8 @@ class PinjamanDebetController extends Controller
 
             $pinjaman->update([
                 'status' => $status,
-                'angsuran_pinjaman' => $nom
+                'angsuran_pinjaman' => $nom,
+                'denda' => (int)$pinjaman->denda + (int)$request->denda
             ]);
             Session::flash("flash_notification", [
                 "level" => "success",

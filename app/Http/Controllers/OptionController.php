@@ -123,6 +123,7 @@ class OptionController extends Controller
                 ]
             );
             $post = $request->all();
+            // dd($post);
             unset($post['_token']);
 
             foreach ($post as $key => $data) {

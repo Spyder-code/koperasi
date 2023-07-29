@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 @endsection
 @section('content')
+@php
+$logo=asset(Storage::url('logo/logo.png'));
+$profile=asset(Storage::url('avatar/'));
+$users=\Auth::user();
+@endphp
 <div class="row">
     <div class="col-12">
         <div class="page-title-box">
@@ -47,7 +52,7 @@
                 <button type="button" class="btn btn-primary" id="cari" data-url="{{ route('simpanan-anggota.cari') }}">Cari</button>
                 @endpermission
                 @permission('excell-simpanan-anggota')
-                <input type="submit" value="Excell" class="btn btn-danger" name="export_excell">
+                <button type="submit" value="Excell" class="btn btn-danger" name="export_excell">Lihat Laporan</button>
                 @endpermission
             </form>
         </div>
@@ -120,7 +125,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="response">
-                        <img src="{{ asset('loader.png') }}" alt="">
+                        <img src="{{ $logo }}" alt="">
                     </div>
                 </div>
             </div>
@@ -207,7 +212,7 @@
                         });
                     }else {
                         $('#result').html(response);
-                        $('#response').html(`<img src="{!! asset('images/brand.png') !!}" alt="" height="250" width="250">`);
+                        $('#response').html(`<img src="{!! $logo !!}" alt="" height="250" width="250">`);
                     }
                 },
             })

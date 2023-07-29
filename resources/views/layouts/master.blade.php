@@ -1,15 +1,20 @@
+@php
+$logo=asset(Storage::url('logo/logo.png'));
+$profile=asset(Storage::url('avatar/'));
+$users=\Auth::user();
+@endphp
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Sistem Informasi Koperasi Simpan Pinjam</title>
+        <title>{{ \App\Helpers\Options::show('title_text') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="Sistem Informasi Koperasi Karyawan" name="description" />
         <meta content="Asep IT" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ asset('images/logo.png') }}">
+        <link rel="shortcut icon" class="img-fluid logo-img" href="{{ $logo }}">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App css -->
@@ -27,11 +32,6 @@
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
     </head>
     <body>
-        @php
-            $logo=asset(Storage::url('logo/'));
-            $profile=asset(Storage::url('avatar/'));
-            $users=\Auth::user();
-        @endphp
         <!-- Begin page -->
         <div id="wrapper">
             <!-- Top Bar Start -->
@@ -40,10 +40,10 @@
                 <div class="topbar-left">
                     <a href="{{ url('/') }}" class="logo">
                         <span>
-                            <img class="img-fluid" src="{{ asset('images/logo.png') }}" alt="" width="50">
+                            <img class="img-fluid" src="{{ $logo }}" alt="" width="50">
                         </span>
                         <i>
-                            <img class="img-fluid" src="{{ asset('images/logo.png') }}" alt="" width="50" >
+                            <img class="img-fluid" src="{{ $logo }}" alt="" width="50" >
                         </i>
                     </a>
                 </div>

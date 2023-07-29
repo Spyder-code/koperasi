@@ -49,7 +49,7 @@
                 <button class="btn btn-primary" type="button" id="cari" data-url="{{ route('pinjaman-anggota.cari') }}">Cari</button>
                 @endpermission
                 @permission('excell-pinjaman-anggota')
-                <input type="submit" value="Excell" class="btn btn-danger" name="export_excell">
+                <button type="submit" value="Excell" class="btn btn-danger" name="export_excell">Lihat Laporan</button>
                 @endpermission
             </form>
         </div>

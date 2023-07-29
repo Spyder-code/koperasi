@@ -21,6 +21,8 @@ class CreateTransaksiPinjamenTable extends Migration
             $table->double('bunga');
             $table->double('jumlah_pinjaman')->default(0);
             $table->double('angsuran_pinjaman')->default(0);
+            $table->double('angsuran_bulanan')->default(0);
+            $table->double('denda')->default(0);
             $table->date('periode');
             $table->boolean('status')->default(false);
             $table->timestamps();

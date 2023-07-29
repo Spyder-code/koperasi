@@ -13,6 +13,8 @@ class TransaksiPinjaman extends Model
         'lama_cicilan',
         'status',
         'angsuran_pinjaman',
+        'angsuran_bulanan',
+        'denda',
     ];
 
     public function transaksi_harian_biaya()

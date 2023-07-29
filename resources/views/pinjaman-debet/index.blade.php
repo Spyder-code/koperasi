@@ -52,6 +52,7 @@
                         <th>Transaksi</th>
                         <th>Cicilan</th>
                         <th>Bunga</th>
+                        <th>Denda</th>
                         <th>Keterangan</th>
                         <th>Status Buku</th>
                         <th>ACTION DEFAULT</th>
@@ -94,6 +95,7 @@
                             { data: 'jenis_transaksi', name: 'jenis_transaksi' },
                             { data: 'sumCicilan', name: 'sumCicilan', orderable: false, searchable: false},
                             { data: 'sumBunga', name: 'sumBunga', orderable: false, searchable: false },
+                            { data: 'sumDenda', name: 'sumDenda', orderable: false, searchable: false },
                             { data: 'keterangan', name: 'keterangan' },
                             { data: 'is_close', name: 'is_close' },
                             { data: 'action', name: 'action', orderable: false, searchable: false}

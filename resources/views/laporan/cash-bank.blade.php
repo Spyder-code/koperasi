@@ -49,7 +49,7 @@
                 <input type="submit" value="Cari" class="btn btn-primary" name="search">
                 @endpermission
                 @permission('excell-laporan-kas-bank')
-                <input type="submit" value="Excell" class="btn btn-danger" name="export_excell">
+                <button type="submit" value="Excell" class="btn btn-danger" name="export_excell">Lihat Laporan</button>
                 @endpermission
             </form>
         </div>
@@ -62,6 +62,7 @@
                     <tr>
                         <th>#</th>
                         <th>Tgl</th>
+                        <th>Anggota</th>
                         <th>Keterangan</th>
                         <th>Debit</th>
                         <th>Kredit</th>
@@ -93,6 +94,7 @@
                             <tr>
                                 <td scope="row">{{ $no }}</td>
                                 <td>{{ App\Helpers\Tanggal::tanggal_id($row->tgl )}}</td>
+                                <td>{{ $row->nama_anggota->anggota->nama }}</td>
                                 <td>{{ $row->keterangan }}</td>
                                 <td>{{ App\Helpers\Money::stringToRupiah($row->sumDebitAll->sum('nominal')) }}</td>
                                 <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditAll->sum('nominal')) }}</td>

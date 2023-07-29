@@ -23,7 +23,7 @@
             </div> --}}
         </div>
         <div class="form-group clearfix anggota">
-            <label class="control-label " for="confirm">No Anggota *</label>
+            <label class="control-label " for="confirm">Nama Anggota *</label>
             {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Models\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
         </div>
         {{-- <div class="form-group clearfix anggota col-8">
@@ -57,6 +57,7 @@
     <section>
         <input type="hidden" name="jenis_transaksi" value="2">
         <input type="hidden" name="bunga" id="bunga">
+        <input type="hidden" name="angsuran_bulanan" id="angsuran_bulanan">
         <div class="form-group clearfix">
             {{-- <label class="control-label" for="name"> Transaksi</label>
             <div class="">

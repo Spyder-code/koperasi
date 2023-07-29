@@ -55,24 +55,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/id.min.js"></script>
 <script>
-        const check = (count) => {
+    let data = [];
+
+        const check = (count,idx) => {
             var animals = $('[name="pinjaman_count"]');
             var total_bayar = 0;
             var bunga = $('#nominal_bunga_total').val();
             var fee = Math.ceil(parseInt(bunga) / count);
             var bunga_total = 0;
-            console.log(fee);
+            var denda = 0;
+            var price = 0;
             $.each(animals, function() {
                 var $this = $(this);
                 if($this.is(":checked")) {
-                    total_bayar += parseInt($this.val());
+                    total_bayar += parseInt($this.val()) + parseInt($($this).data("denda"));
                     bunga_total += fee;
+                    denda += parseInt($($this).data("denda"));
+                    price += parseInt($this.val());
                 }
             });
             $('#nominal_pinjaman').val('Rp. '+total_bayar.toLocaleString('en-US'));
             $('#nominal_bunga').val(bunga_total);
+            $('#denda').val(denda);
+            $('[name="pinjaman_count"]').val(price);
         }
-    $(function(){
 
         $(".select2").select2();
 
@@ -125,24 +131,35 @@
             var total = nominal_bunga + rupiah;
             var price = Math.ceil(total / count);
             var lunas = parseInt(angsuran) / price;
+            var nominal_angsuran = 0;
             for (let i = 1; i <= count; i++) {
                 var inp = '';
                 var status = 'Lunas';
+                let tgl_i = 20 + i;
+                const start = moment(tgl).add(i, 'months');
+                const end = moment();
+                let telat = end.diff(start, "days");
+                if(telat<=0){
+                    telat = 0;
+                }
+                const denda = Math.ceil((0.1 * price) * telat);
+                const total_ = price + denda;
+                nominal_angsuran += total_;
+                data.push({price:price,telat:telat,denda:denda,total:total_});
                 if (lunas<=0) {
-                    inp = `<input type="checkbox" class="pinjaman_id" onchange="check(${count})" name="pinjaman_count" value="${price}"/>`;
+                    inp = `<input type="checkbox" class="pinjaman_id" onchange="check(${count},${i - 1})" name="pinjaman_count" value="${price}" data-denda="${denda}"/>`;
                     status = 'Belum Bayar';
                 }
-                html += '<tr><td class="text-center">'+inp+'</td><td>'+moment(tgl).add(i, 'months').format('DD/MM/YYYY')+'</td><td>Rp. '+price.toLocaleString('en-US')+'</td><td>'+status+'</td></tr>';
+                html += '<tr><td class="text-center">'+inp+'</td><td>'+moment(tgl).add(i, 'months').format('DD/MM/YYYY')+'</td><td>'+telat+' Hari</td><td>'+denda.toLocaleString('en-US')+'</td><td>Rp. '+price.toLocaleString('en-US')+'</td><td>Rp. '+total_.toLocaleString('en-US')+'</td><td>'+status+'</td></tr>';
                 lunas--;
             }
             html += `<tr>
-                        <td style="font-weight:bold" class="text-center" colspan="2">Total Nominal Angsuran</td>
-                        <td style="font-weight:bold">Rp. ${total.toLocaleString('en-US')}</td>
+                        <td style="font-weight:bold" class="text-center" colspan="5">Total Nominal Angsuran</td>
+                        <td style="font-weight:bold" colspan="2">Rp. ${nominal_angsuran.toLocaleString('en-US')}</td>
                     </tr>`
 
             $('#cicilan-skema').append(html);
             $('#nominal_bunga_total').val(nominal_bunga);
         }
-    })
 </script>
 @endsection

@@ -18,8 +18,135 @@
         </div>
     </div>
 </div>
-<!-- end row -->
 <div class="row">
+    <div class="col-12 col-md-8">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card-box tilebox-one">
+                    <h6 class="text-muted text-uppercase mb-3">Pinjaman Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                    <table class="w-100">
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td style="width: 100px">{{ number_format($debet_pinjaman) }}</td>
+                            <td>Total Uang dipinjam</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($jt_pelunasan) }}</td>
+                            <td>Jatuh Tempo Pelunasan </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($jt_pelunasan_dibayar) }}</td>
+                            <td>Pelunasan Dibayar</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card-box tilebox-one">
+                    <h6 class="text-muted text-uppercase mb-3">Simpanan Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                    <table class="w-100">
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td style="width: 100px">{{ number_format($sum_pokok) }}</td>
+                            <td>Simpanan Pokok</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($sum_wajib) }}</td>
+                            <td>Simpanan Wajib</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($sum_sukarela) }}</td>
+                            <td>Simpanan Sukarela</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card-box tilebox-one">
+                    <h6 class="text-muted text-uppercase mb-3">Data Anggota</h6>
+                    <table class="w-100">
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td style="width: 100px">{{ number_format($anggota_aktif + $anggota_disable) }}</td>
+                            <td>Total Anggota</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($anggota_aktif) }}</td>
+                            <td>Anggota Aktif</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($anggota_disable) }}</td>
+                            <td>Anggota non Aktif</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card-box tilebox-one">
+                    <h6 class="text-muted text-uppercase mb-3">Data Peminjam</h6>
+                    <table class="w-100">
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td style="width: 100px">{{ $transaksi_pinjam->count() }}</td>
+                            <td>Total Peminjam</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ $transaksi_pinjam->where('status',1)->count() }}</td>
+                            <td>Sudah Lunas</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ $transaksi_pinjam->where('status',0)->count() }}</td>
+                            <td>Belum Lunas</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card p-3 shadow">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box tilebox-one">
+                        <h6 class="text-muted text-uppercase mb-3">Kas Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                        <table class="w-100">
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td style="width: 100px">{{ number_format($kas_debit) }}</td>
+                            <td>Debet</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($kas_kredit) }}</td>
+                            <td>Kredit</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($kas_debit - $kas_kredit) }}</td>
+                            <td>Saldo</td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box tilebox-one">
+                        <h6 class="text-muted text-uppercase mb-3">Bank Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                        <table class="w-100">
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td style="width: 100px">{{ number_format($bank_debit) }}</td>
+                            <td>Debet</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($bank_kredit) }}</td>
+                            <td>Kredit</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid gray;">
+                            <td>{{ number_format($bank_debit - $bank_kredit) }}</td>
+                            <td>Saldo</td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- <div class="row">
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-one">
             <i class="fi-layers float-right"></i>
@@ -48,8 +175,8 @@
             <h6 class="mb-3"><span>{{ number_format($kredit_simpanan) }}</span></h6>
         </div>
     </div>
-</div>
-<div class="row">
+</div> --}}
+{{-- <div class="row">
     <div class="col-xl-6">
         <div class="card-box">
             <h4 class="header-title">TRANSAKSI Periode : {{ $periode->name }}</h4>
@@ -77,10 +204,10 @@
             <canvas id="chartAnggota" height="350" class="mt-4"></canvas>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- end row -->
 <!-- end row -->
-<div class="row">
+{{-- <div class="row">
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card-box tilebox-one">
             <i class="fi-layers float-right"></i>
@@ -102,8 +229,8 @@
             <h6 class="mb-3"><span>{{ number_format($debet_pinjaman) }}</span></h6>
         </div>
     </div>
-</div>
-<div class="row">
+</div> --}}
+<div class="row mt-3">
     <div class="col-lg-6">
         <div class="card-box">
             <h4 class="header-title mb-4">LOG PENGGUNA</h4>

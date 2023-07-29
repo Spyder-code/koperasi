@@ -37,15 +37,88 @@
                     <label for="">Tanggal Akhir</label>
                     <input type="text" class="form-control datepicker" name="end_date" autocomplete="off">
                 </div>
-                {{-- <input type="submit" value="Cari" class="btn btn-primary" name="search">
-                @role('admin')
+                <div class="form-group">
+                    <label for="">Nama Anggota</label>
+                    <select name="id_anggota" id="id_anggota" class="form-control">
+                        <option value=""></option>
+                        @foreach ($anggota as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="submit" value="Cari" class="btn btn-primary" name="search">
+                {{-- @role('admin')
                 <input type="submit" value="Excell" class="btn btn-danger" name="export_excell">
                 @endrole --}}
             </form>
         </div>
     </div>
 </div>
+@if (request('search'))
 <div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tgl</th>
+                        <th>Keterangan</th>
+                        <th>Pinjaman</th>
+                        <th>Cicilan Pinjaman</th>
+                        <th>Akumulasi Denda</th>
+                        <th>Akumulasi Bunga</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                @if (!empty($transaksi_harian))
+                    <tbody>
+                        @php
+                            $no = 1;
+                            $saldo = 0;
+                            $cicilan = 0;
+                            $sumKredit = 0;
+                            $sumCicilan = 0;
+                            $i = 0;
+                        @endphp
+                        @php
+                            $saldo =  $sum_kredit_pinjaman - $sum_cicilan;
+                        @endphp
+                        <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td><strong>Saldo Mutasi</strong></td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($sum_kredit_pinjaman) }}</td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($sum_cicilan) }}</td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($sum_bunga) }}</td>
+                            <td>{{ App\Helpers\Money::stringToRupiah($saldo) }}</td>
+                        </tr>
+                        @foreach ($transaksi_harian as $row)
+                            @php
+                                $saldo +=  $row->sumKreditPinjaman->sum('nominal') - $row->sumCicilan->sum('nominal');
+                            @endphp
+                            <tr>
+                                <th scope="row">{{ $no }}</th>
+                                <td>{{ App\Helpers\Tanggal::tanggal_id($row->tgl) }}</td>
+                                <td>{{ $row->keterangan }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditPinjaman->sum('nominal')) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($row->sumCicilan->sum('nominal')) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($row->sumDenda->sum('nominal')) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($row->sumBunga->sum('nominal')) }}</td>
+                                <td>{{ App\Helpers\Money::stringToRupiah($saldo) }}</td>
+                            </tr>
+                            @php
+                                $no++;
+                            @endphp
+                        @endforeach
+                    </tbody>
+                @endif
+            </table>            
+        </div>
+    </div>
+</div>
+@endif
+{{-- <div class="row">
     <div class="col-lg-12">
         <div class="card-box">
             <form id="anggota-form">
@@ -64,11 +137,11 @@
                         @endforeach
                     </tbody>
                 </table>
-                <button class="btn btn-success text-right" type="button" id="export">Excell</button>
+                <button class="btn btn-success text-right" type="button" id="export">Lihat Laporan</button>
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 @section('script')
 <script src="{{ asset('plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>

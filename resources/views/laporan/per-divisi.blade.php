@@ -9,13 +9,13 @@
     <div class="col-12">
         <div class="page-title-box">
             <div class="float-left">
-                <h4 class="page-title">Laporan Perdivisi </h4>
+                <h4 class="page-title">Laporan Transaksi </h4>
                 <small class="text-danger">Periode : {{ periode()->name }}</small>
             </div>
             <div class="float-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Laporan</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('laporan.per-divisi')}}">Laporan Perdivisi</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laporan.per-divisi')}}">Laporan Transaksi</a></li>
                 </ol>
                 <small class="text-danger">Tahun Buku : {{ periode()->open_date }} - {{ periode()->close_date }}</small>
             </div>
@@ -38,14 +38,14 @@
                     <input type="text" class="form-control datepicker" name="end_date" autocomplete="off">
                 </div>
                 <div class="form-group clearfix">
-                    <label class="control-label " for="confirm">Nama Divisi *</label>
-                    {!! Form::select('divisi_id', [''=>'Pilih Divisi']+App\Models\Divisi::pluck('name','id')->all(), null, ['class' => 'form-control select2']) !!}
+                    <label class="control-label " for="confirm">Transaksi *</label>
+                    {!! Form::select('divisi_id', [''=>'Pilih transaksi']+App\Models\Divisi::pluck('name','id')->all(), null, ['class' => 'form-control select2']) !!}
                 </div>
                 @permission('search-laporan-divisi')
                 <input type="submit" value="Cari" class="btn btn-primary" name="search">
                 @endpermission
                 @permission('excell-laporan-divisi')
-                <input type="submit" value="Excell" class="btn btn-danger" name="export_excell">
+                <button type="submit" value="Excell" class="btn btn-danger" name="export_excell">Lihat Laporan</button>
                 @endpermission
             </form>
         </div>

@@ -24,12 +24,12 @@
         </div>
         @if (!empty($anggota))
         <div class="form-group clearfix anggota">
-            <label class="control-label " for="confirm">No Anggota *</label>
+            <label class="control-label " for="confirm">Nama Anggota *</label>
             {!! Form::select('anggota_id',[''=>'Pilih Anggota']+$anggota, null, ['class' => 'form-control select2', 'id'=>'anggota_id']) !!}
         </div>
         @else
         <div class="form-group clearfix anggota">
-            <label class="control-label " for="confirm">No Anggota *</label>
+            <label class="control-label " for="confirm">Nama Anggota *</label>
             {!! Form::select('anggota_id', [''=>'Pilih Anggota']+App\Models\Anggota::pluck('nama','id')->all(), null, ['class' => 'form-control select2']) !!}
         </div>
         @endif
@@ -68,6 +68,7 @@
             <input type="hidden" name="nominal_bunga_total" id="nominal_bunga_total">
             <input type="hidden" class="form-control" name="id_biaya_bunga_pinjaman" value="7">
             <input type="hidden" class="form-control" name="id_biaya_pinjaman" value="6">
+            <input type="hidden" name="denda" id="denda">
             {{-- <label class="control-label" for="name"> Transaksi</label>
             <div class="">
                 {!! Form::select('jenis_transaksi', ['1' => 'Debet'], null, ['placeholder' => '<---Jenis Transaksi -->', 'class' => 'form-control']) !!}
@@ -89,7 +90,10 @@
                         <tr>
                             <th class="text-center">Pilih Angsuran</th>
                             <th>Jatuh Tempo Bayar Angsuran</th>
+                            <th>Telat</th>
+                            <th>Denda</th>
                             <th>Jumlah Nominal</th>
+                            <th>Total</th>
                             <th>Status</th>
                         </tr>
                     </thead>

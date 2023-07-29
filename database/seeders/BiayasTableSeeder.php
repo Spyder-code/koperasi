@@ -81,5 +81,12 @@ class BiayasTableSeeder extends Seeder
         $biaya->id = '8';
         $biaya->save();
 
+        // DENDA
+        $biaya = new Biaya();
+        $biaya->name = 'Denda Telat Pembayaran';
+        $biaya->divisi_id = $divisi->id;
+        $biaya->id = '9';
+        $biaya->jenis_biaya = '1';
+        $biaya->save();
     }
 }
