@@ -13,4 +13,14 @@ class UserAnggota extends Model
     ];
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function anggota()
+    {
+        return $this->belongsTo(Anggota::class);
+    }
 }

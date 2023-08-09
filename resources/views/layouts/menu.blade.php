@@ -57,13 +57,13 @@
                         @permission('manage-debet-simpanan')
                         <li class="{{ set_active(['simpanan-debet.index', 'simpanan-debet.create', 'simpanan-debet.edit', 'simpanan-debet.upload'])}}">
                             <a href="{{ route('simpanan-debet.index') }}" class="{{ set_active(['simpanan-debet.index', 'simpanan-debet.create', 'simpanan-debet.edit', 'simpanan-debet.upload'])}}">
-                                Tambah Saldo
+                                Tambah Simpanan
                             </a>
                         </li>
                         @endpermission
                         @permission('manage-kredit-simpanan')
                         <li class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">
-                            <a href="{{ route('simpanan-kredit.index') }}" class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">Ambil Saldo</a>
+                            <a href="{{ route('simpanan-kredit.index') }}" class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">Ambil Simpanan</a>
                         </li>
                         @endpermission
                     </ul>

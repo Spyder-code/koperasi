@@ -11,13 +11,13 @@
     <div class="col-12">
         <div class="page-title-box">
             <div class="float-left">
-                <h4 class="page-title">Simpanan Debet </h4>
+                <h4 class="page-title">Simpanan</h4>
                 <small class="text-danger">Periode : {{ periode()->name }}</small>
             </div>
             <div class="float-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Transaksi</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('simpanan-debet.index')}}">Simpanan Debet</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('simpanan-debet.index')}}">Simpanan</a></li>
                     <li class="breadcrumb-item active">Tambah</li>
                 </ol>
                 <small class="text-danger">Tahun Buku : {{ periode()->open_date }} - {{ periode()->close_date }}</small>
@@ -33,7 +33,7 @@
             <p class="text-muted m-b-30 font-13">
                 Silahkan Lakukan Pengisian Transaksi Secara Lengkap
             </p>
-            <form id="basic-form" action="{{ route('simpanan-debet.store') }}" method="POST">
+            <form id="basic-form" action="{{ route('simpanan-debet.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('simpanan-debet._form')
             </form>
@@ -52,6 +52,9 @@
 <script src="{{ asset('js/jquery.maskMoney.js')}}" type="text/javascript"></script>
 <script src="{{ asset('plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('plugins/bootstrap-select/js/bootstrap-select.js') }}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/id.min.js"></script>
 <script>
     $(function(){
         $(".select2").select2();
@@ -133,5 +136,44 @@
             }
         });
     })
+
+    function hitungSimpanan() {
+        var count = $('#lama_simpanan').val();
+        var nominal = $('#nominal_biaya_sukarela').val();
+        var tgl = $('#tgl').val();
+        var fee = 0.02;
+        var html = '';
+        if(count>=9){
+            fee = 0.03;
+        }
+        const parts = tgl.split('-'); // split the date string by '-' character
+        tgl = `${parts[2]}-${parts[1]}-${parts[0]}`; // rearrange the parts to get yyyy-mm-dd format
+        const numericString = nominal.replace(/[^\d]/g, ''); // remove all non-numeric characters
+        const rupiah = parseInt(numericString); // parse the numeric string to an integer value
+        var total = (rupiah * fee) + rupiah;
+        var price = Math.ceil(total / count);
+        for (let i = 1; i <= count; i++) {
+            html += `<tr>
+                        <td class="text-center">${i}</td>
+                        <td>${moment(tgl).add(i, 'months').format('DD/MM/YYYY')}</td>
+                        <td>Rp. ${price.toLocaleString('en-US')}</td>
+                    </tr>`;
+        }
+        html += `<tr>
+                    <td style="font-weight:bold" class="text-center" colspan="2">Total Nominal Simpanan</td>
+                    <td style="font-weight:bold">Rp. ${total.toLocaleString('en-US')}</td>
+                </tr>`
+
+        $('#simpanan-skema').html(html);
+        $('#bunga').val(fee);
+    }
+    $('#lama_simpanan').change(function (e) {
+        e.preventDefault();
+        hitungSimpanan();
+    });
+
+    $('#nominal_biaya_sukarela').keyup(function (e) {
+        hitungSimpanan();
+    });
 </script>
 @endsection

@@ -47,6 +47,9 @@ class AnggotaController extends Controller
                     ->editColumn('tgl_daftar', function ($anggota) {
                         return Tanggal::tanggal_id($anggota->tgl_daftar);
                     })
+                    ->editColumn('username', function ($anggota) {
+                        return $anggota->user_anggota->user->username ?? '-';
+                    })
                     ->addColumn('action', function ($anggota) {
                         return view('datatable._nodelete', [
                             'edit_url' => route('anggota.edit', $anggota->id),
@@ -96,6 +99,11 @@ class AnggotaController extends Controller
                 'nik' => 'required|unique:anggotas',
                 'nama' => 'required',
                 'inisial' => 'required',
+                'tgl_lahir' => 'required',
+                'tempat_lahir' => 'required',
+                'jabatan' => 'required',
+                'username' => 'required',
+                'password' => 'required|min:8',
                 'status' => 'required',
                 'tgl_daftar' => 'required',
                 'homebase' => 'required'
@@ -103,6 +111,9 @@ class AnggotaController extends Controller
             $anggota = new Anggota();
             $anggota->nik = $request->nik;
             $anggota->nama = $request->nama;
+            $anggota->tempat_lahir = $request->tempat_lahir;
+            $anggota->tgl_lahir = Tanggal::convert_tanggal($request->tgl_lahir);
+            $anggota->jabatan = $request->jabatan;
             $anggota->inisial = $request->inisial;
             $anggota->tgl_daftar = Tanggal::convert_tanggal($request->tgl_daftar);
             $anggota->status = $request->status;
@@ -111,8 +122,9 @@ class AnggotaController extends Controller
 
             $user = new User();
             $user->email = $request->nik;
-            $user->password = bcrypt('Kopkar2019');
+            $user->password = bcrypt($request->password);
             $user->name = $request->nama;
+            $user->username = $request->username;
             $user->save();
 
             DB::table('role_user')->insert([
@@ -179,13 +191,19 @@ class AnggotaController extends Controller
                 'inisial' => 'required',
                 'status' => 'required',
                 'tgl_daftar' => 'required',
-                'homebase' => 'required'
+                'homebase' => 'required',
+                'tgl_lahir' => 'required',
+                'tempat_lahir' => 'required',
+                'jabatan' => 'required',
             ]);
             $anggota = Anggota::find($id);
             $anggota->nik = $request->nik;
             $anggota->nama = $request->nama;
             $anggota->inisial = $request->inisial;
             $anggota->status = $request->status;
+            $anggota->tempat_lahir = $request->tempat_lahir;
+            $anggota->tgl_lahir = Tanggal::convert_tanggal($request->tgl_lahir);
+            $anggota->jabatan = $request->jabatan;
             $anggota->tgl_daftar = Tanggal::convert_tanggal($request->tgl_daftar);
             $anggota->homebase = $request->homebase;
             $anggota->update();
@@ -195,6 +213,12 @@ class AnggotaController extends Controller
             $user = User::find($userAnggota->user_id);
             $user->email = $request->nik;
             $user->name = $request->nama;
+            if($request->username){
+                $user->username = $request->username;
+            }
+            if($request->password){
+                $user->password = bcrypt($request->password);
+            }
             $user->save();
             Session::flash("flash_notification", [
                 "level" => "success",

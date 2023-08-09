@@ -17,6 +17,9 @@ class CreateAnggotasTable extends Migration
             $table->bigIncrements('id');
             $table->string('nik')->unique();
             $table->string('nama');
+            $table->date('tgl_lahir')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->string('jabatan')->nullable();
             $table->string('inisial')->nullable();
             $table->integer('status');
             $table->timestamps();

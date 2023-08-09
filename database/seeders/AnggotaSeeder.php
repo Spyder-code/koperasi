@@ -29,6 +29,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -51,6 +52,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -73,6 +75,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -95,6 +98,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -117,6 +121,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -139,6 +144,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -161,6 +167,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -183,6 +190,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -205,6 +213,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 
@@ -227,6 +236,7 @@ class AnggotaSeeder extends Seeder
         $user = User::create([
             'name' => $anggota->nama,
             'email' => $anggota->nik,
+            'username' => $anggota->nik,
             'password' => bcrypt('password')
         ]);
 

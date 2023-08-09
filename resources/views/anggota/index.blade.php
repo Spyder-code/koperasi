@@ -34,10 +34,10 @@
                     <tr>
                         <th>#ID</th>
                         <th>NIK</th>
+                        <th>Username</th>
                         <th>Nama</th>
                         <th>Inisial</th>
                         <th>Tanggal Daftar</th>
-                        <th>Home Base</th>
                         <th>Status</th>
                         <th>ACTION DEFAULT</th>
                     </tr>
@@ -73,10 +73,10 @@
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'nik', name: 'nik' },
+                { data: 'username', name: 'username' },
                 { data: 'nama', name: 'nama' },
                 { data: 'inisial', name: 'inisial', visible:false },
                 { data: 'tgl_daftar', name: 'tgl_daftar' },
-                { data: 'homebase', name: 'homebase' },
                 { data: 'status', name: 'status', orderable: false, searchable: false },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],

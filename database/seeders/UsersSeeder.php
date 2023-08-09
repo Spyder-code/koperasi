@@ -854,6 +854,7 @@ class UsersSeeder extends Seeder
 
         $userAdmin = User::create([
             'name' => 'Admin Koperasi',
+            'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password')
         ]);
@@ -885,6 +886,7 @@ class UsersSeeder extends Seeder
 
         $memberUser = User::create([
             'name' => 'Member Koperasi',
+            'username' => 'member',
             'email' => 'member@gmail.com',
             'password' => bcrypt('password')
         ]);

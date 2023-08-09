@@ -12,6 +12,9 @@ class Anggota extends Model
         'nama',
         'nik',
         'inisial',
+        'tgl_lahir',
+        'tempat_lahir',
+        'jabatan',
         'tgl_daftar',
         'status',
         'homebase'
@@ -20,5 +23,10 @@ class Anggota extends Model
     public function transaksi_harian_anggota()
     {
         return $this->hasMany(TransaksiHarianAnggota::class,'anggota_id');
+    }
+
+    public function user_anggota()
+    {
+        return $this->hasOne(UserAnggota::class);
     }
 }

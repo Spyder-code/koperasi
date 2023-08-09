@@ -11,13 +11,13 @@
     <div class="col-12">
         <div class="page-title-box">
             <div class="float-left">
-                <h4 class="page-title">Simpanan Debet </h4>
+                <h4 class="page-title">Simpanan</h4>
                 <small class="text-danger">Periode : {{ periode()->name }}</small>
             </div>
             <div class="float-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Transaksi</a></li>
-                    <li class="breadcrumb-item active">Simpanan Debet</li>
+                    <li class="breadcrumb-item active">Simpanan</li>
                 </ol>
                 <small class="text-danger">Tahun Buku : {{ periode()->open_date }} - {{ periode()->close_date }}</small>
             </div>
@@ -105,10 +105,9 @@
                         scrollX: true
                     });
 
-                    $("div.toolbar").html(`@permission('create-debet-simpanan')<a href="{{ route('simpanan-debet.create') }}" class="btn btn-gradient waves-light waves-effect w-md"><i class="fa fa-plus"></i> Tambah</a>
+                    $("div.toolbar").html(`@permission('create-debet-simpanan')<a href="{{ route('simpanan-debet.create') }}" class="btn btn-gradient waves-light waves-effect w-md"><i class="fa fa-plus"></i> Tambah Simpanan</a>
                     @endpermission
-                    @permission('download-debet-simpanan')<a href="https://docs.google.com/spreadsheets/d/1di8N5gzGvzpfE0D7pC1WELwvslw7XVx3/export?format=xlsx" class="btn btn-success waves-light waves-effect w-md"><i class="mdi mdi-file-excel"></i>Download Template</a>@endpermission
-                    @permission('upload-debet-simpanan')<a href="{{ route('simpanan-debet.upload') }}" class="btn btn-warning waves-light waves-effect w-md"><i class="mdi mdi-cloud-upload"></i> Upload</a>@endpermission
+                    @permission('download-debet-simpanan')<a href="https://docs.google.com/spreadsheets/d/1di8N5gzGvzpfE0D7pC1WELwvslw7XVx3/export?format=xlsx" class="btn btn-success waves-light waves-effect w-md"><i class="mdi mdi-file-excel"></i>Download Data Simpanan</a>@endpermission
                     @if(App\Helpers\Pembukuan::closeBook('1', '1', ['1', '2', '3']) == '1')
                     <a href="{{ route('simpanan-debet.close-book') }}" class="btn btn-danger waves-light waves-effect w-md"><i class="fa fa-book"></i> Tutup Buku</a>
                     @endif

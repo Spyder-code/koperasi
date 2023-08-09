@@ -5,7 +5,7 @@
         <div class="form-group clearfix">
             <label class="control-label" for="userName" id="datepicker">Tanggal Transaksi</label>
             <div class="">
-                {!! Form::text('tgl', null, ['class' => 'form-control required datepicker', 'autocomplete' => 'off'])!!}
+                {!! Form::text('tgl', null, ['class' => 'form-control required datepicker', 'autocomplete' => 'off','id'=>'tgl'])!!}
             </div>
         </div>
         <div class="form-group clearfix">
@@ -83,7 +83,37 @@
                 <label for="Pokok" class="control-label">Sukarela</label>
                 <div class="">
                     <input type="hidden" class="form-control" name="id_biaya_sukarela" value="3">
-                    <input type="text" class="form-control biaya" name="nominal_biaya_sukarela" value="{{ old('nominal_biaya_sukarela', $nominal_biaya_sukarela ?? null) }}">
+                    <input type="text" class="form-control biaya" id="nominal_biaya_sukarela" name="nominal_biaya_sukarela" value="{{ old('nominal_biaya_sukarela', $nominal_biaya_sukarela ?? null) }}">
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <label for="Pokok" class="control-label">Lama Simpanan</label>
+                <div class="">
+                    {!! Form::select('lama_simpanan', ['3' => '3 Bulan Bunga(1%)', '6' => '6 Bulan Bunga(2%)', '9' => '9 Bulan Bunga(3%)', '12' => '12 Bulan Bunga(4%)'], null, ['placeholder' => '<---Lama Simpanan -->', 'class' => 'form-control', 'id'=>'lama_simpanan']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th>Periode</th>
+                            <th>Jumlah Nominal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="simpanan-skema">
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group clearfix">
+                <label for="file" class="control-label">Bukti Transaksi</label>
+                <div class="">
+                    <input type="file" class="form-control" name="file">
                 </div>
             </div>
         </div>

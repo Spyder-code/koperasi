@@ -32,6 +32,28 @@
     </div>
 </div>
 <div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Tanggal Lahir</label>
+    <div class="col-8">
+        {{ Form::text('tgl_lahir', null, ['class' => $errors->has('tgl_lahir') ? 'form-control datepicker is-invalid' : 'form-control datepicker', 'placeholder' => 'Tanggal Lahir']) }}
+        @error('tgl_lahir')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Tempat Lahir</label>
+    <div class="col-8">
+        {{ Form::text('tempat_lahir', null, ['class' => $errors->has('tempat_lahir') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Tempat Lahir']) }}
+        @error('tempat_lahir')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+<div class="form-group row">
     <label class="col-4 col-form-label" for="example-input-normal">Tanggal Daftar</label>
     <div class="col-8">
         {{ Form::text('tgl_daftar', null, ['class' => $errors->has('tgl_daftar') ? 'form-control datepicker is-invalid' : 'form-control datepicker', 'placeholder' => 'Tanggal Daftar']) }}
@@ -54,10 +76,44 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-4 col-form-label" for="example-input-normal">Home Base</label>
+    <label class="col-4 col-form-label" for="example-input-normal">Jabatan</label>
     <div class="col-8">
-        {!! Form::text('homebase', null, ['class'=>$errors->has('homebase') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Home Base']) !!}
+        {{ Form::text('jabatan', null, ['class' => $errors->has('jabatan') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Jabatan']) }}
+        @error('jabatan')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Alamat</label>
+    <div class="col-8">
+        {!! Form::text('homebase', null, ['class'=>$errors->has('homebase') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Alamat']) !!}
         @error('homebase')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+<hr>
+<div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Username</label>
+    <div class="col-8">
+        {{ Form::text('username', null, ['class' => $errors->has('username') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Username Anggota']) }}
+        @error('username')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Password</label>
+    <div class="col-8">
+        {{ Form::password('password', null, ['class' => $errors->has('password') ? 'form-control is-invalid' : 'form-control']) }}
+        @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
