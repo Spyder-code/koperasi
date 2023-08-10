@@ -33,7 +33,7 @@
             <p class="text-muted m-b-30 font-13">
                 Silahkan Lakukan Pengisian Transaksi Secara Lengkap
             </p>
-            <form id="basic-form" action="{{ route('pinjaman-debet.store') }}" method="POST">
+            <form id="basic-form" action="{{ route('pinjaman-debet.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('pinjaman-debet._form',['anggota'=>$anggota])
             </form>
@@ -121,10 +121,16 @@
         });
 
         function hitungCicilan(count,nominal,angsuran,tgl) {
-            var fee = 0.02;
+            var fee = 0.05;
             var html = '';
-            if(count>=9){
-                fee = 0.03;
+            if(count==3){
+                fee = 0.05;
+            }else if(count==6){
+                fee = 0.06;
+            }else if(count==9){
+                fee = 0.07;
+            }else if(count==12){
+                fee = 0.08;
             }
             const rupiah = parseInt(nominal); // parse the numeric string to an integer value
             var nominal_bunga = rupiah * fee;

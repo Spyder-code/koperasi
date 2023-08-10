@@ -19,6 +19,7 @@ class CreateTransaksiHariansTable extends Migration
             $table->date('tgl');
             $table->integer('jenis_pembayaran');
             $table->integer('jenis_transaksi');
+            $table->boolean('status')->default(0);
             $table->text('keterangan')->nullable();
             $table->string('file')->nullable();
             $table->bigInteger('periode_id')->unsigned()->nullable();

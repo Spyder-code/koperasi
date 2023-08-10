@@ -31,7 +31,8 @@ class UserController extends Controller
                         return view('datatable._resetpassword', [
                             'edit_url' => route('user.edit', $user->id),
                             'reset_url' => route('user.reset-password', $user->id),
-                            'confirm_message' => 'Apakah anda yakin mau menghapus pendaftaran ' . $user->name . '?'
+                            'confirm_message' => 'Apakah anda yakin mau menghapus pendaftaran ' . $user->name . '?',
+                            'id' => $user->id
                         ]);
                     })
                     ->make(true);
@@ -75,10 +76,12 @@ class UserController extends Controller
                 'email' => 'required|unique:users',
                 'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
                 'password_confirmation' => 'min:8',
-                'role_id' => 'required'
+                'role_id' => 'required',
+                'username' => 'required',
             ]);
 
             $user = new User();
+            $user->username = $request->username;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
@@ -195,7 +198,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+         //Sent Session Message To View
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Berhasil Hapus Pengguna !!!"
+        ]);
+
+        return back();
     }
 
     public function resetPassword($id)

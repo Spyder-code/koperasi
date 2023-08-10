@@ -55,6 +55,7 @@
                         <th>Denda</th>
                         <th>Keterangan</th>
                         <th>Status Buku</th>
+                        <th>Bukti</th>
                         <th>ACTION DEFAULT</th>
                     </tr>
                 </thead>
@@ -98,6 +99,7 @@
                             { data: 'sumDenda', name: 'sumDenda', orderable: false, searchable: false },
                             { data: 'keterangan', name: 'keterangan' },
                             { data: 'is_close', name: 'is_close' },
+                            { data: 'file', name: 'file' },
                             { data: 'action', name: 'action', orderable: false, searchable: false}
                         ],
                         dom: '<"toolbar">frtip',

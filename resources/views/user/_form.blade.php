@@ -5,6 +5,12 @@
     </div>
 </div>
 <div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Usernama</label>
+    <div class="col-8">
+        {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username'])!!}
+    </div>
+</div>
+<div class="form-group row">
     <label class="col-4 col-form-label" for="example-input-normal">Email Pengguna</label>
     <div class="col-8">
         {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email'])!!}

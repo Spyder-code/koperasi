@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\Tanggal;
 use App\Models\TransaksiHarian;
+use App\Models\TransaksiPinjaman;
 use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanKasBank;
 use App\Exports\LaporanSimpanan;
@@ -22,6 +23,12 @@ class LaporanController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function angsuran()
+    {
+        $data = TransaksiPinjaman::orderBy('periode')->get();
+        return view('laporan.angsuran',compact('data'));
     }
 
     public function cashBank(Request $request)

@@ -107,6 +107,12 @@
                     <input type="text" class="form-control biaya" name="nominal_pinjaman" id="nominal_pinjaman" value="{{ old('nominal_pinjaman', $nominal_pinjaman ?? null) }}">
                 </div>
             </div>
+            <div class="form-group clearfix">
+                <label for="file" class="control-label">Bukti Transaksi</label>
+                <div class="">
+                    <input type="file" class="form-control" name="file">
+                </div>
+            </div>
             {{-- <div class="form-group clearfix">
                 <label for="Pokok" class="control-label">Bunga</label>
                 <div class="">

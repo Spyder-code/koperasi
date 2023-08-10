@@ -53,7 +53,8 @@ class AnggotaController extends Controller
                     ->addColumn('action', function ($anggota) {
                         return view('datatable._nodelete', [
                             'edit_url' => route('anggota.edit', $anggota->id),
-                            'can_edit' => 'edit-anggota'
+                            'can_edit' => 'edit-anggota',
+                            'id' => $anggota->id
                         ]);
                     })
                     ->editColumn('is_close', function ($anggota) {

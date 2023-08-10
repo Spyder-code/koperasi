@@ -38,7 +38,8 @@ class RoleController extends Controller
                         return view('datatable._nodelete', [
                             'edit_url' => route('role.edit', $role->id),
                             'confirm_message' => 'Apakah anda yakin mau menghapus pendaftaran ' . $role->name . '?',
-                            'can_edit' => 'edit-role'
+                            'can_edit' => 'edit-role',
+                            'id' => $role->id,
                         ]);
                     })
                     ->editColumn('permission_role', function ($role) {
@@ -178,6 +179,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Role::find($id)->delete();
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data Berhasil dihapus !!!"
+        ]);
+        return back();
     }
 }

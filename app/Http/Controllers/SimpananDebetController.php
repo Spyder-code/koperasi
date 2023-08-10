@@ -17,6 +17,8 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Pembukuan;
 use App\Models\Anggota;
+use App\Models\TransaksiSimpanan;
+use Illuminate\Support\Carbon;
 
 class SimpananDebetController extends Controller
 {
@@ -50,7 +52,12 @@ class SimpananDebetController extends Controller
                         }
                     })
                     ->editColumn('jenis_transaksi', function ($transaksiHarian) {
-                        return '<span class="badge badge-primary badge-pill">Debet</span>';
+                        return '<span class="badge badge-primary badge-pill">Tambah Simpanan</span>';
+                    })
+                    ->editColumn('file', function ($transaksiHarian) {
+                        return '<a href="'.asset($transaksiHarian->file).'" target="d_blank">
+                            <img src="'.asset($transaksiHarian->file).'" style="height:50px; width:50px;"/>
+                        </a>';
                     })
                     ->addColumn('action', function ($transaksiHarian) {
                         return view('datatable._action-transaction', [
@@ -78,7 +85,7 @@ class SimpananDebetController extends Controller
                             return '<p class="text-danger">None Aktif</p>';
                         }
                     })
-                    ->rawColumns(['jenis_pembayaran', 'jenis_transaksi', 'action', 'is_close'])
+                    ->rawColumns(['jenis_pembayaran', 'jenis_transaksi', 'action', 'is_close','file'])
                     ->make(true);
             }
             return view('simpanan-debet.index');
@@ -113,15 +120,21 @@ class SimpananDebetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         if (\Auth::user()->isAbleTo('create-debet-simpanan')) {
             # code...
             $this->validate($request, [
+                'anggota_id' => 'required',
+                'file' => 'required',
                 'tgl' => 'required',
                 'divisi_id' => 'required',
                 'jenis_transaksi' => 'required'
             ]);
 
+            $file_name = date('ymdhis').'.jpg';
+            if($request->file('file')){
+                $request->file('file')->storeAs('public/transaksi/', $file_name);
+            }
             //Save Transaction Kopkar
             $periode = Periode::where('status', '1')->first();
             $transaksiHarian = new TransaksiHarian();
@@ -131,6 +144,9 @@ class SimpananDebetController extends Controller
             $transaksiHarian->jenis_transaksi = $request->jenis_transaksi;
             $transaksiHarian->keterangan = $request->keterangan;
             $transaksiHarian->periode_id = $periode->id;
+            if($request->file('file')){
+                $transaksiHarian->file = 'storage/transaksi/'.$file_name;
+            }
             $transaksiHarian->save();
 
             //Save Transation Member Kopkar
@@ -155,11 +171,41 @@ class SimpananDebetController extends Controller
             $transaksi_biaya->save();
 
             //Store Biaya Sukarela
+            $sukarela_price = Money::rupiahToString($request->nominal_biaya_sukarela);
             $transaksi_biaya = new TransaksiHarianBiaya();
             $transaksi_biaya->biaya_id = $request->id_biaya_sukarela;
             $transaksi_biaya->transaksi_harian_id = $transaksiHarian->id;
-            $transaksi_biaya->nominal = Money::rupiahToString($request->nominal_biaya_sukarela);
+            $transaksi_biaya->nominal = $sukarela_price;
             $transaksi_biaya->save();
+
+            if($sukarela_price>0 && $request->lama_simpanan>0){
+                $count = (int)$request->lama_simpanan;
+                $tgl_awal = Tanggal::convert_tanggal($request->tgl);
+                $c = new Carbon($tgl_awal);
+                $tgl_akhir = $c->addMonths($request->lama_simpanan)->format('Y-m-d');
+                $fee = 0;
+                if($count==3){
+                    $fee = 0.01;
+                }else if($count==6){
+                    $fee = 0.02;
+                }else if($count==9){
+                    $fee = 0.03;
+                }else if($count==12){
+                    $fee = 0.04;
+                }
+                $total = ($sukarela_price * $fee) + $sukarela_price;
+                $price = $total / $count;
+                TransaksiSimpanan::create([
+                    'anggota_id' => $request->anggota_id,
+                    'transaksi_harian_biaya_id' => $transaksi_biaya->id,
+                    'tanggal_awal' => $tgl_awal,
+                    'tanggal_akhir' => $tgl_akhir,
+                    'lama_simpanan' => $request->lama_simpanan,
+                    'simpanan_pinjaman' => $fee,
+                    'simpanan_bulanan' => $price,
+                    'status' => 0,
+                ]);
+            }
             //Sent Session To VIEW
             Session::flash("flash_notification", [
                 "level" => "success",

@@ -107,6 +107,7 @@ class PinjamanKreditController extends Controller
      */
     public function store(Request $request)
     {
+
         //
         if (\Auth::user()->isAbleTo('create-kredit-pinjaman')) {
             # code...
@@ -147,11 +148,12 @@ class PinjamanKreditController extends Controller
             $transaksiPinjaman->angsuran_bulanan = $request->angsuran_bulanan;
             $transaksiPinjaman->periode = Tanggal::convert_tanggal($request->tgl);
             $transaksiPinjaman->jumlah_pinjaman = Money::rupiahToString($request->nominal);
+            $transaksiPinjaman->persetujuan = $request->persetujuan ?? 1;
             $transaksiPinjaman->save();
 
             Session::flash("flash_notification", [
                 "level" => "success",
-                "message" => "Berhasil Menambah Data Transaksi !!!"
+                "message" => "Berhasil Mengajukan Pinjaman !!!"
             ]);
             activity()->log('Menambahkan Data Pinjaman Kredit');
             return redirect()->route('pinjaman-kredit.index');

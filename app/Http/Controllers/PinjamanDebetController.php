@@ -49,6 +49,11 @@ class PinjamanDebetController extends Controller
                             return '<span class="badge badge-danger badge-pill">Bank</span>';
                         }
                     })
+                    ->editColumn('file', function ($transaksiHarian) {
+                        return '<a href="'.asset($transaksiHarian->file).'" target="d_blank">
+                            <img src="'.asset($transaksiHarian->file).'" style="height:50px; width:50px;"/>
+                        </a>';
+                    })
                     ->editColumn('jenis_transaksi', function ($transaksiHarian) {
                         return '<span class="badge badge-info badge-pill">Debet</span>';
                     })
@@ -78,7 +83,7 @@ class PinjamanDebetController extends Controller
                             return '<p class="text-danger">None Aktif</p>';
                         }
                     })
-                    ->rawColumns(['jenis_pembayaran', 'jenis_transaksi', 'action', 'is_close'])
+                    ->rawColumns(['jenis_pembayaran', 'jenis_transaksi', 'action', 'is_close','file'])
                     ->make(true);
             }
             return view('pinjaman-debet.index');
@@ -122,9 +127,14 @@ class PinjamanDebetController extends Controller
             $this->validate($request, [
                 'tgl' => 'required',
                 'divisi_id' => 'required',
+                'file' => 'required',
                 'jenis_transaksi' => 'required'
             ]);
 
+            $file_name = date('ymdhis').'.jpg';
+            if($request->file('file')){
+                $request->file('file')->storeAs('public/transaksi/', $file_name);
+            }
             // $nominal = str_replace(['.',','],'',Money::rupiahToString($request->nominal_pinjaman));
             $nominal = $request->pinjaman_count;
             //Save Transaction
@@ -136,6 +146,9 @@ class PinjamanDebetController extends Controller
             $transaksiHarian->jenis_transaksi = $request->jenis_transaksi;
             $transaksiHarian->keterangan = $request->keterangan;
             $transaksiHarian->periode_id = $periode->id;
+            if($request->file('file')){
+                $transaksiHarian->file = 'storage/transaksi/'.$file_name;
+            }
             $transaksiHarian->save();
 
             //Save Transation Member
@@ -178,7 +191,7 @@ class PinjamanDebetController extends Controller
             ]);
             Session::flash("flash_notification", [
                 "level" => "success",
-                "message" => "Berhasil Menambah Data Transaksi !!!"
+                "message" => "Berhasil Membayar Pinjaman !!!"
             ]);
             activity()->log('Menambahkan Data Pinjaman Debet');
             return redirect()->route('pinjaman-debet.index');

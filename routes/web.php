@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\CopySaldoController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\DivisiDebetController;
 use App\Http\Controllers\DivisiKreditController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaporanAllController;
 use App\Http\Controllers\LaporanController;
@@ -42,6 +44,10 @@ Route::get('/', function () {
 });
 Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => ['auth']], function () {
+        Route::get('aproval-simpanan', [ApprovalController::class,'simpanan'])->name('approval.simpanan');
+        Route::get('aproval-pinjaman', [ApprovalController::class,'pinjaman'])->name('approval.pinjaman');
+        Route::get('help', [HelpController::class,'index'])->name('help.index');
+        Route::post('help', [HelpController::class,'store'])->name('help.store');
         Route::get('laporan-simpanan', [LaporanController::class,'simpanan'])->name('laporan.simpanan');
         Route::get('laporan-pinjaman', [LaporanController::class,'pinjaman'])->name('laporan.pinjaman');
         Route::get('laporan-simpanan-all', [LaporanAllController::class,'simpananAll'])->name('laporan.simpanan-all');
@@ -66,6 +72,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('attach-permission/{role_id}', [PermissionController::class,'attachPermission'])->name('permission.attach');
         Route::resource('permission', PermissionController::class);
         Route::get('laporan-kas-bank', [LaporanController::class,'cashBank'])->name('laporan.cash-bank');
+        Route::get('laporan-angusran', [LaporanController::class,'angsuran'])->name('laporan.angsuran');
         Route::get('laporan-perdivisi', [LaporanController::class,'perDivisi'])->name('laporan.per-divisi');
         Route::get('transaksi-harian.chek-anggota', [TransaksiHarianController::class,'cekAnggota'])->name('transaksi-harian.chek-anggota');
         Route::resource('user', UserController::class);

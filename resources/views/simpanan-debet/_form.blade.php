@@ -89,7 +89,7 @@
             <div class="form-group clearfix">
                 <label for="Pokok" class="control-label">Lama Simpanan</label>
                 <div class="">
-                    {!! Form::select('lama_simpanan', ['3' => '3 Bulan Bunga(1%)', '6' => '6 Bulan Bunga(2%)', '9' => '9 Bulan Bunga(3%)', '12' => '12 Bulan Bunga(4%)'], null, ['placeholder' => '<---Lama Simpanan -->', 'class' => 'form-control', 'id'=>'lama_simpanan']) !!}
+                    {!! Form::select('lama_simpanan', ['0'=>'Tidak Ada','3' => '3 Bulan Bunga(1%)', '6' => '6 Bulan Bunga(2%)', '9' => '9 Bulan Bunga(3%)', '12' => '12 Bulan Bunga(4%)'], 0, ['placeholder' => '<---Lama Simpanan -->', 'class' => 'form-control', 'id'=>'lama_simpanan']) !!}
                 </div>
             </div>
             <div class="form-group">

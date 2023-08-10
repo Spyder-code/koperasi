@@ -98,10 +98,16 @@
             var count = $('#lama_cicilan').val();
             var nominal = $('#nominal').val();
             var tgl = $('#tgl').val();
-            var fee = 0.02;
+            var fee = 0.05;
             var html = '';
-            if(count>=9){
-                fee = 0.03;
+            if(count==3){
+                fee = 0.05;
+            }else if(count==6){
+                fee = 0.06;
+            }else if(count==9){
+                fee = 0.07;
+            }else if(count==12){
+                fee = 0.08;
             }
             const parts = tgl.split('-'); // split the date string by '-' character
             tgl = `${parts[2]}-${parts[1]}-${parts[0]}`; // rearrange the parts to get yyyy-mm-dd format

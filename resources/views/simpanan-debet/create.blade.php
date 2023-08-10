@@ -141,11 +141,17 @@
         var count = $('#lama_simpanan').val();
         var nominal = $('#nominal_biaya_sukarela').val();
         var tgl = $('#tgl').val();
-        var fee = 0.02;
-        var html = '';
-        if(count>=9){
+        var fee = 0;
+        if(count==3){
+            fee = 0.01;
+        }else if(count==6){
+            fee = 0.02;
+        }else if(count==9){
             fee = 0.03;
+        }else if(count==12){
+            fee = 0.04;
         }
+        var html = '';
         const parts = tgl.split('-'); // split the date string by '-' character
         tgl = `${parts[2]}-${parts[1]}-${parts[0]}`; // rearrange the parts to get yyyy-mm-dd format
         const numericString = nominal.replace(/[^\d]/g, ''); // remove all non-numeric characters

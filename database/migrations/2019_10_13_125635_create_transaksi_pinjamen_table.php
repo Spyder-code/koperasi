@@ -24,6 +24,7 @@ class CreateTransaksiPinjamenTable extends Migration
             $table->double('angsuran_bulanan')->default(0);
             $table->double('denda')->default(0);
             $table->date('periode');
+            $table->boolean('persetujuan')->default(1);
             $table->boolean('status')->default(false);
             $table->timestamps();
 

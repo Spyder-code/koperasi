@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label for="">Nama Anggota</label>
                     <select name="id_anggota" id="id_anggota" class="form-control">
-                        <option value=""></option>
+                        <option value="all" selected>All</option>
                         @foreach ($anggota as $item)
                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                         @endforeach
@@ -63,6 +63,7 @@
                     <tr>
                         <th>#</th>
                         <th>Tgl</th>
+                        <th>Nama Anggota</th>
                         <th>Keterangan</th>
                         <th>Pinjaman</th>
                         <th>Cicilan Pinjaman</th>
@@ -87,6 +88,7 @@
                         <tr>
                             <th scope="row"></th>
                             <td></td>
+                            <td></td>
                             <td><strong>Saldo Mutasi</strong></td>
                             <td>{{ App\Helpers\Money::stringToRupiah($sum_kredit_pinjaman) }}</td>
                             <td>{{ App\Helpers\Money::stringToRupiah($sum_cicilan) }}</td>
@@ -100,6 +102,7 @@
                             <tr>
                                 <th scope="row">{{ $no }}</th>
                                 <td>{{ App\Helpers\Tanggal::tanggal_id($row->tgl) }}</td>
+                                <td>{{ $row->transaksi_harian_anggota->anggota->nama }}</td>
                                 <td>{{ $row->keterangan }}</td>
                                 <td>{{ App\Helpers\Money::stringToRupiah($row->sumKreditPinjaman->sum('nominal')) }}</td>
                                 <td>{{ App\Helpers\Money::stringToRupiah($row->sumCicilan->sum('nominal')) }}</td>
@@ -113,7 +116,7 @@
                         @endforeach
                     </tbody>
                 @endif
-            </table>            
+            </table>
         </div>
     </div>
 </div>

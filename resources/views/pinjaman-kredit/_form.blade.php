@@ -73,9 +73,9 @@
                 </div>
             </div>
             <div class="form-group clearfix">
-                <label for="Pokok" class="control-label">Lama Kredit</label>
+                <label for="Pokok" class="control-label">Lama Pinjaman</label>
                 <div class="">
-                    {!! Form::select('lama_cicilan', ['3' => '3 Bulan Bunga(2%)', '6' => '6 Bulan Bunga(2%)', '9' => '9 Bulan Bunga(3%)', '12' => '12 Bulan Bunga(3%)'], null, ['placeholder' => '<---Lama Cicilan -->', 'class' => 'form-control', 'id'=>'lama_cicilan']) !!}
+                    {!! Form::select('lama_cicilan', ['3' => '3 Bulan Bunga(5%)', '6' => '6 Bulan Bunga(6%)', '9' => '9 Bulan Bunga(7%)', '12' => '12 Bulan Bunga(8%)'], null, ['placeholder' => '<---Lama Cicilan -->', 'class' => 'form-control', 'id'=>'lama_cicilan']) !!}
                 </div>
             </div>
             <div class="form-group">
@@ -106,6 +106,24 @@
             <label class="control-label " for="surname"> Keterangan </label>
             <div class="">
                 {!! Form::textarea('keterangan', null, ['class' => 'form-control required', 'autocomplete' => 'off'])!!}
+            </div>
+        </div>
+    </section>
+    <!-- End Section Page 3 -->
+    <!-- Section Page 3 -->
+    <h3>Persetujuan</h3>
+    <section>
+        <div class="form-group clearfix">
+            {{-- <label class="control-label " for="persetujuan"> Persetujuan </label> --}}
+            <div class="" style="display: flex; gap:20px">
+                <label for="persetujuan">
+                    <input type="radio" name="persetujuan" value="1" id="" checked>
+                    Diterima
+                </label>
+                <label for="persetujuan">
+                    <input type="radio" name="persetujuan" value="0" id="">
+                    Ditolak
+                </label>
             </div>
         </div>
     </section>

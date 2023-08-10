@@ -49,7 +49,7 @@ class SimpananKreditController extends Controller
                         }
                     })
                     ->editColumn('jenis_transaksi', function ($transaksiHarian) {
-                        return '<span class="badge badge-info badge-pill">Kredit</span>';
+                        return '<span class="badge badge-info badge-pill">Ambil Simpanan</span>';
                     })
                     ->addColumn('action', function ($transaksiHarian) {
                         return view('datatable._action-transaction', [

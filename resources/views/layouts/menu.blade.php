@@ -66,6 +66,9 @@
                             <a href="{{ route('simpanan-kredit.index') }}" class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">Ambil Simpanan</a>
                         </li>
                         @endpermission
+                        <li class="{{ set_active(['approval.simpanan'])}}">
+                            <a href="{{ route('approval.simpanan') }}" class="{{ set_active(['approval.simpanan'])}}">Approval Request</a>
+                        </li>
                     </ul>
                 </li>
                 @endpermission
@@ -77,20 +80,25 @@
                         <i class="fi-map"></i> <span> Pinjaman </span> <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level collapse" aria-expanded="false" style="">
-                        @permission('manage-debet-pinjaman')
-                        <li class="{{ set_active(['pinjaman-debet.index', 'pinjaman-debet.create', 'pinjaman-debet.edit', 'pinjaman-debet.upload'])}}">
-                            <a href="{{ route('pinjaman-debet.index') }}" class="{{ set_active(['pinjaman-debet.index', 'pinjaman-debet.create', 'pinjaman-debet.edit', 'pinjaman-debet.upload'])}}">
-                                Bayar Angsuran
-                            </a>
-                        </li>
-                        @endpermission
                         @permission('manage-kredit-pinjaman')
                         <li class="{{ set_active(['pinjaman-kredit.index', 'pinjaman-kredit.create', 'pinjaman-kredit.edit', 'pinjaman-kredit.upload'])}}">
                             <a href="{{ route('pinjaman-kredit.index') }}" class="{{ set_active(['pinjaman-kredit.index', 'pinjaman-kredit.create', 'pinjaman-kredit.edit', 'pinjaman-kredit.upload'])}}">
-                                Ambil Angsuran
+                                Ambil Pinjaman
                             </a>
                         </li>
                         @endpermission
+                        @permission('manage-debet-pinjaman')
+                        <li class="{{ set_active(['pinjaman-debet.index', 'pinjaman-debet.create', 'pinjaman-debet.edit', 'pinjaman-debet.upload'])}}">
+                            <a href="{{ route('pinjaman-debet.index') }}" class="{{ set_active(['pinjaman-debet.index', 'pinjaman-debet.create', 'pinjaman-debet.edit', 'pinjaman-debet.upload'])}}">
+                                Bayar Pinjaman
+                            </a>
+                        </li>
+                        @endpermission
+                        <li class="{{ set_active(['approval.pinjaman'])}}">
+                            <a href="{{ route('approval.pinjaman') }}" class="{{ set_active(['approval.pinjaman'])}}">
+                                Approval Request
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @endpermission
@@ -120,7 +128,7 @@
                 <li class="menu-title">Laporan</li>
                 @endpermission
                 @permission('manage-laporan-kas-bank')
-                <li><a href="{{ route('laporan.cash-bank') }}"><i class="fi-file"></i> <span>Laporan Kas/Bank</span> </a></li>
+                <li><a href="{{ route('laporan.angsuran') }}"><i class="fi-file"></i> <span>Laporan Angsuran</span> </a></li>
                 @endpermission
                 @permission('manage-laporan-simpanan-all')
                 <li><a href="{{ route('laporan.simpanan-all') }}"><i class="fi-file"></i> <span>Laporan Simpanan</span> </a></li>
@@ -128,12 +136,12 @@
                 @permission('manage-laporan-pinjaman-all')
                 <li><a href="{{ route('laporan.pinjaman-all') }}"><i class="fi-file"></i> <span>Laporan Pinjaman</span> </a></li>
                 @endpermission
-                @permission('manage-simpanan-anggota')
+                {{-- @permission('manage-simpanan-anggota')
                 <li><a href="{{ route('laporan.simpanan') }}"><i class="fi-file"></i> <span>Simpanan Anggota</span> </a></li>
                 @endpermission
                 @permission('manage-pinjaman-anggota')
                 <li><a href="{{ route('laporan.pinjaman') }}"><i class="fi-file"></i> <span>Pinjaman Anggota</span> </a></li>
-                @endpermission
+                @endpermission --}}
                 @permission('manage-laporan-divisi')
                 <li><a href="{{ route('laporan.per-divisi') }}"><i class="fi-file"></i> <span>Laporan Transaksi</span> </a></li>
                 @endpermission
@@ -175,6 +183,11 @@
                     </a>
                 </li>
                 @endpermission
+                <li class="{{ set_active(['help.index'])}}">
+                    <a href="{{ route('help.index') }}" class="{{ set_active(['option.index'])}}">
+                        <i class="fi-mail"></i> <span>Help</span>
+                    </a>
+                </li>
             </ul>
 
         </div>
