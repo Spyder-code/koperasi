@@ -15,6 +15,7 @@ class TransaksiHarian extends Model
         'keterangan',
         'periode_id',
         'file',
+        'status',
         'is_close'
     ];
 

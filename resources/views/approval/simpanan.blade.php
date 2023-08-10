@@ -41,6 +41,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
+            <b>TAMBAH SIMPANAN</b>
+            <hr>
             <table id="datatable-buttons" class="table table-striped table-bordered display nowrap" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -75,7 +77,7 @@
                             <!-- Modal -->
                             <div class="modal fade" id="detail{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="detail{{ $item->id }}Label" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
-                                    <form action="{{ route('approval.simpanan.update') }}" method="POST" class="modal-content">
+                                    <form action="{{ route('approval.update',$item) }}" method="POST" class="modal-content">
                                         @csrf
                                         @method('PUT')
                                         <div class="modal-header">
@@ -106,11 +108,49 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" onclick="return confirm('are you sure?')" class="btn btn-primary">Approve</button>
+                                            <button type="submit" name="status" value="1" onclick="return confirm('are you sure?')" class="btn btn-success">Approve</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 mt-3">
+        <div class="card-box table-responsive">
+            <b>AMBIL SIMPANAN</b>
+            <hr>
+            <table id="datatable-buttons1" class="table table-striped table-bordered display nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Tanggal</th>
+                        <th>Nama Anggota</th>
+                        <th>Transaksi</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data1 as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ date('d/m/Y', strtotime($item->tgl)) }}</td>
+                        <td>{{ $item->transaksi_harian_anggota->anggota->nama }}</td>
+                        <td>{{ $item->jenis_pembayaran==1?'Kas':'Bank' }}</td>
+                        <td>{{ number_format($item->transaksi_harian_biaya()->sum('nominal')) }}</td>
+                        <td>{{ $item->keterangan }}</td>
+                        <td>
+                            <form action="{{ route('approval.update',$item) }}" method="POST" class="modal-content">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" name="status" value="1" onclick="return confirm('are you sure?')" class="btn btn-success">Approve</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -138,5 +178,6 @@
 <script src="{{ asset('plugins/datatables/buttons.print.min.js') }}"></script>
 <script>
     var oTable = $('#datatable-buttons').DataTable()
+    var oTable1 = $('#datatable-buttons1').DataTable()
 </script>
 @endsection

@@ -66,9 +66,11 @@
                             <a href="{{ route('simpanan-kredit.index') }}" class="{{ set_active(['simpanan-kredit.index', 'simpanan-kredit.create', 'simpanan-kredit.edit', 'simpanan-kredit.upload'])}}">Ambil Simpanan</a>
                         </li>
                         @endpermission
+                        @permission('approval-simpanan')
                         <li class="{{ set_active(['approval.simpanan'])}}">
                             <a href="{{ route('approval.simpanan') }}" class="{{ set_active(['approval.simpanan'])}}">Approval Request</a>
                         </li>
+                        @endpermission
                     </ul>
                 </li>
                 @endpermission
@@ -94,11 +96,13 @@
                             </a>
                         </li>
                         @endpermission
+                        @permission('approval-pinjaman')
                         <li class="{{ set_active(['approval.pinjaman'])}}">
                             <a href="{{ route('approval.pinjaman') }}" class="{{ set_active(['approval.pinjaman'])}}">
                                 Approval Request
                             </a>
                         </li>
+                        @endpermission
                     </ul>
                 </li>
                 @endpermission

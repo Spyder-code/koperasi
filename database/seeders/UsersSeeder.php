@@ -754,6 +754,57 @@ class UsersSeeder extends Seeder
             ]);
         }
 
+        $moduleApproval = Module::create([
+            'name' => 'Module Approval'
+        ]);
+
+        $permissionModuleApproval = [
+
+            [
+                'name' => 'approval-pinjaman',
+                'display_name' => 'Manage Approval Pinjaman',
+                'description' => 'Manage Approval Pinjaman'
+            ],
+            [
+                'name' => 'approval-simpanan',
+                'display_name' => 'Manage Approval Simpanan',
+                'description' => 'Manage Approval Simpanan'
+            ],
+        ];
+
+        foreach ($permissionModuleApproval as $key) {
+
+            Permission::create([
+                'name' => $key['name'],
+                'display_name' => $key['display_name'],
+                'description' => $key['description'],
+                'module_id' => $moduleApproval->id
+            ]);
+        }
+
+        $moduleHelp = Module::create([
+            'name' => 'Module Help'
+        ]);
+
+        $permissionModuleHelp = [
+
+            [
+                'name' => 'help',
+                'display_name' => 'Manage Help',
+                'description' => 'Manage Help'
+            ],
+        ];
+
+        foreach ($permissionModuleHelp as $key) {
+
+            Permission::create([
+                'name' => $key['name'],
+                'display_name' => $key['display_name'],
+                'description' => $key['description'],
+                'module_id' => $moduleHelp->id
+            ]);
+        }
+
         //Adminstrator Rules
         Role::create([
             'name' => 'admin',
@@ -763,6 +814,9 @@ class UsersSeeder extends Seeder
 
         $adminRole = Role::where('name', 'admin')->first();
         $adminPermission = [
+            'approval-pinjaman',
+            'approval-simpanan',
+            'help',
             'manage-anggota',
             'create-anggota',
             'edit-anggota',
@@ -876,6 +930,7 @@ class UsersSeeder extends Seeder
 
         $memberRole = Role::where('name', 'member')->first();
         $memberPermission = [
+            'help',
             'manage-simpanan-anggota',
             'search-simpanan-anggota',
             'excell-simpanan-anggota',

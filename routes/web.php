@@ -46,6 +46,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('aproval-simpanan', [ApprovalController::class,'simpanan'])->name('approval.simpanan');
         Route::get('aproval-pinjaman', [ApprovalController::class,'pinjaman'])->name('approval.pinjaman');
+        Route::put('aproval/{trx}', [ApprovalController::class,'update'])->name('approval.update');
         Route::get('help', [HelpController::class,'index'])->name('help.index');
         Route::post('help', [HelpController::class,'store'])->name('help.store');
         Route::get('laporan-simpanan', [LaporanController::class,'simpanan'])->name('laporan.simpanan');

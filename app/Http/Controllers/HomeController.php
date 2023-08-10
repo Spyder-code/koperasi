@@ -44,7 +44,8 @@ class HomeController extends Controller
         {
             $transaksi_pinjam = TransaksiPinjaman::select('id','status')->get();
             $transaksi_harian = TransaksiHarian::with(['sumKreditAll', 'sumDebitAll'])
-                ->select(['id', 'tgl', 'keterangan', 'jenis_transaksi'])
+                ->select(['id', 'tgl', 'keterangan', 'jenis_transaksi','status'])
+                ->where('status',1)
                 ->orderBy('tgl', 'DESC')
                 ->limit(10)
                 ->get();
@@ -54,6 +55,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_biayas.biaya_id', '1')
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -63,6 +65,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_biayas.biaya_id', '2')
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -72,6 +75,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_biayas.biaya_id', '3')
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -80,6 +84,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '4')
+                        ->where('transaksi_harians.status', 1)
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
             $debet_pinjaman = DB::table('transaksi_harians')
@@ -88,10 +93,16 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_biayas.biaya_id', '8')
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
             $jt_pelunasan = TransaksiPinjaman::whereMonth('periode',date('m'))
+                        ->whereHas('transaksi_harian_biaya', function($a){
+                            $a->whereHas('transaksi_harian', function($b){
+                                $b->where('status',1);
+                            });
+                        })
                         ->whereYear('periode',date('Y'))
                         ->where('status',0  )
                         ->sum('angsuran_bulanan');
@@ -101,6 +112,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_biayas.biaya_id', '6')
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -110,6 +122,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '7')
+                        ->where('transaksi_harians.status',1)
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
             $kredit_pinjaman = DB::table('transaksi_harians')
@@ -117,6 +130,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '8')
+                        ->where('transaksi_harians.status',1)
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
             $kas_kredit = DB::table('transaksi_harians')
@@ -124,6 +138,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harians.jenis_transaksi', 2)
                         ->where('transaksi_harians.jenis_pembayaran', 1)
                         ->sum('transaksi_harian_biayas.nominal');
@@ -132,6 +147,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harians.jenis_transaksi', 1)
                         ->where('transaksi_harians.jenis_pembayaran', 1)
                         ->sum('transaksi_harian_biayas.nominal');
@@ -140,6 +156,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harians.jenis_transaksi', 2)
                         ->where('transaksi_harians.jenis_pembayaran', 2)
                         ->sum('transaksi_harian_biayas.nominal');
@@ -148,6 +165,7 @@ class HomeController extends Controller
                         // ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->whereMonth('transaksi_harians.tgl',date('m'))
                         ->whereYear('transaksi_harians.tgl',date('Y'))
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harians.jenis_pembayaran', 2)
                         ->where('transaksi_harians.jenis_transaksi', 1)
                         ->sum('transaksi_harian_biayas.nominal');
@@ -212,6 +230,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '1')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -220,6 +239,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '2')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -228,6 +248,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '3')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -236,6 +257,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '4')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '1')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -244,6 +266,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '6')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -252,6 +275,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '7')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
@@ -260,6 +284,7 @@ class HomeController extends Controller
                         ->join('transaksi_harian_anggotas', 'transaksi_harians.id', '=', 'transaksi_harian_anggotas.transaksi_harian_id')
                         ->whereBetween('transaksi_harians.tgl', [$periode->open_date, $periode->close_date])
                         ->where('transaksi_harian_biayas.biaya_id', '8')
+                        ->where('transaksi_harians.status',1)
                         ->where('transaksi_harian_anggotas.anggota_id',$anggota->anggota_id)
                         ->where('divisi_id', '2')
                         ->sum('transaksi_harian_biayas.nominal');
