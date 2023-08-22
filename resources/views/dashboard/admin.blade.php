@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="card-box tilebox-one">
-                    <h6 class="text-muted text-uppercase mb-3">Pinjaman Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                    <h6 class="text-muted text-uppercase mb-3">Pinjaman</h6>
                     <table class="w-100">
                         <tr style="border-bottom: 1px solid gray;">
                             <td style="width: 100px">{{ number_format($debet_pinjaman) }}</td>
@@ -46,7 +46,7 @@
             </div>
             <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="card-box tilebox-one">
-                    <h6 class="text-muted text-uppercase mb-3">Simpanan Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                    <h6 class="text-muted text-uppercase mb-3">Simpanan</h6>
                     <table class="w-100">
                         <tr style="border-bottom: 1px solid gray;">
                             <td style="width: 100px">{{ number_format($sum_pokok) }}</td>
@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box tilebox-one">
-                        <h6 class="text-muted text-uppercase mb-3">Kas Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                        <h6 class="text-muted text-uppercase mb-3">Kas</h6>
                         <table class="w-100">
                         <tr style="border-bottom: 1px solid gray;">
                             <td style="width: 100px">{{ number_format($kas_debit) }}</td>
@@ -129,7 +129,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box tilebox-one">
-                        <h6 class="text-muted text-uppercase mb-3">Bank Bulan {{ date('F') }} {{ date('Y') }}</h6>
+                        <h6 class="text-muted text-uppercase mb-3">Bank</h6>
                         <table class="w-100">
                         <tr style="border-bottom: 1px solid gray;">
                             <td style="width: 100px">{{ number_format($bank_debit) }}</td>

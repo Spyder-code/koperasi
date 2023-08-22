@@ -56,7 +56,7 @@
                         <th>Keterangan</th>
                         <th>Status Buku</th>
                         <th>Butkti</th>
-                        <th>ACTION DEFAULT</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

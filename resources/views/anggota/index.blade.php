@@ -39,7 +39,7 @@
                         <th>Inisial</th>
                         <th>Tanggal Daftar</th>
                         <th>Status</th>
-                        <th>ACTION DEFAULT</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

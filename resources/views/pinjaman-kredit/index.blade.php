@@ -53,7 +53,7 @@
                         <th>Pinjaman</th>
                         <th>Keterangan</th>
                         <th>Status Buku</th>
-                        <th>ACTION DEFAULT</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

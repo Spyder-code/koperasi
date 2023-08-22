@@ -53,7 +53,7 @@
                         <th>Jumlah</th>
                         <th>Keterangan</th>
                         <th>File</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,6 +109,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" name="status" value="1" onclick="return confirm('are you sure?')" class="btn btn-success">Approve</button>
+                                            <button type="submit" name="status" value="2" onclick="return confirm('are you sure?')" class="btn btn-danger">Reject</button>
                                         </div>
                                     </form>
                                 </div>
@@ -133,7 +134,7 @@
                         <th>Transaksi</th>
                         <th>Jumlah</th>
                         <th>Keterangan</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -149,7 +150,10 @@
                             <form action="{{ route('approval.update',$item) }}" method="POST" class="modal-content">
                                 @csrf
                                 @method('PUT')
-                                <button type="submit" name="status" value="1" onclick="return confirm('are you sure?')" class="btn btn-success">Approve</button>
+                                <div class="d-flex">
+                                    <button type="submit" name="status" value="1" onclick="return confirm('are you sure?')" class="btn btn-success">Approve</button>
+                                    <button type="submit" name="status" value="2" onclick="return confirm('are you sure?')" class="btn btn-danger">Reject</button>
+                                </div>
                             </form>
                         </td>
                     </tr>

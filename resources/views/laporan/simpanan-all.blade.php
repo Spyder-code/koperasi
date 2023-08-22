@@ -47,9 +47,9 @@
                     </select>
                 </div>
                 <input type="submit" value="Cari" class="btn btn-primary" name="search">
-                {{-- @role('admin')
+                @role('admin')
                 <input type="submit" value="Excell" class="btn btn-danger" name="export_excell">
-                @endrole --}}
+                @endrole
             </form>
         </div>
     </div>

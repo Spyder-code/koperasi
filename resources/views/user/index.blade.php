@@ -49,7 +49,7 @@
                         <th>Nama Pengguna</th>
                         <th>Email</th>
                         <th>Akses</th>
-                        <th></th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

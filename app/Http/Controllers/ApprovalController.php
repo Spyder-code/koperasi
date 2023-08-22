@@ -29,6 +29,10 @@ class ApprovalController extends Controller
     public function update(Request $request, TransaksiHarian $trx)
     {
         $trx->update($request->all());
+        $message = 'Approve Berhasil !!!';
+        if($request->status==2){
+            $message = 'Reject Berhasil !!!';
+        }
         Session::flash("flash_notification", [
             "level" => "success",
             "message" => "Approve Berhasil !!!"

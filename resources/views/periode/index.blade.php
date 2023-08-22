@@ -49,7 +49,7 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Akhir</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

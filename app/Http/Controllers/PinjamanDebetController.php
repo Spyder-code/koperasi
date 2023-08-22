@@ -55,7 +55,7 @@ class PinjamanDebetController extends Controller
                         </a>';
                     })
                     ->editColumn('jenis_transaksi', function ($transaksiHarian) {
-                        return '<span class="badge badge-info badge-pill">Debet</span>';
+                        return '<span class="badge badge-info badge-pill">Bayar Pinjaman</span>';
                     })
                     ->addColumn('action', function ($transaksiHarian) {
                         return view('datatable._action-transaction', [
