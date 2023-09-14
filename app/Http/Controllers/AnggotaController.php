@@ -211,16 +211,18 @@ class AnggotaController extends Controller
 
             $userAnggota = UserAnggota::where('anggota_id', $id)->first();
 
-            $user = User::find($userAnggota->user_id);
-            $user->email = $request->nik;
-            $user->name = $request->nama;
-            if($request->username){
-                $user->username = $request->username;
+            if($userAnggota){
+                $user = User::find($userAnggota->user_id);
+                $user->email = $request->nik;
+                $user->name = $request->nama;
+                if($request->username){
+                    $user->username = $request->username;
+                }
+                if($request->password){
+                    $user->password = bcrypt($request->password);
+                }
+                $user->save();
             }
-            if($request->password){
-                $user->password = bcrypt($request->password);
-            }
-            $user->save();
             Session::flash("flash_notification", [
                 "level" => "success",
                 "message" => "Data Berhasil diubah !!!"
