@@ -119,6 +119,8 @@ class AnggotaController extends Controller
             $anggota->tgl_daftar = Tanggal::convert_tanggal($request->tgl_daftar);
             $anggota->status = $request->status;
             $anggota->homebase = $request->homebase;
+            $anggota->bank = $request->bank;
+            $anggota->no_rek = $request->no_rek;
             $anggota->save();
 
             $user = new User();

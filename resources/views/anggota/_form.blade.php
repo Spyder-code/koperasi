@@ -97,6 +97,28 @@
         @enderror
     </div>
 </div>
+<div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">Bank</label>
+    <div class="col-8">
+        {{ Form::text('bank', null, ['class' => $errors->has('bank') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Bank']) }}
+        @error('bank')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-4 col-form-label" for="example-input-normal">No. Rekening</label>
+    <div class="col-8">
+        {{ Form::text('no_rek', null, ['class' => $errors->has('no_rek') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'No. Rekening']) }}
+        @error('no_rek')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
 <hr>
 <div class="form-group row">
     <label class="col-4 col-form-label" for="example-input-normal">Username</label>
