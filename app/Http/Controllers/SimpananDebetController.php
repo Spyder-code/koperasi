@@ -260,10 +260,10 @@ class SimpananDebetController extends Controller
                 ->where('transaksi_harian_id', $id)
                 ->where('biaya_id', '3')
                 ->sum('nominal');
-            $nominal_biaya_pokok = Money::stringToRupiah($nominal_biaya_pokok);
-            $nominal_biaya_wajib = Money::stringToRupiah($nominal_biaya_wajib);
-            $nominal_biaya_sukarela = Money::stringToRupiah($nominal_biaya_sukarela);
-            $transaksiHarian->nominal = Money::stringToRupiah($transaksiHarian->nominal);
+            $nominal_biaya_pokok = Money::stringToRupiah($nominal_biaya_pokok ?? 0);
+            $nominal_biaya_wajib = Money::stringToRupiah($nominal_biaya_wajib ?? 0);
+            $nominal_biaya_sukarela = Money::stringToRupiah($nominal_biaya_sukarela ?? 0);
+            $transaksiHarian->nominal = Money::stringToRupiah($transaksiHarian->nominal ?? 0);
             $transaksiHarian->tgl = date('d-m-Y', strtotime($transaksiHarian->tgl));
             return view('simpanan-debet.edit')->with(compact('transaksiHarian', 'nominal_biaya_pokok', 'nominal_biaya_wajib', 'nominal_biaya_sukarela'));
         } else {
