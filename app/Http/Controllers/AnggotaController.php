@@ -12,6 +12,7 @@ use App\Models\UserAnggota;
 use App\Models\Periode;
 use App\Exports\AnggotaExport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Session;
 
@@ -108,6 +109,8 @@ class AnggotaController extends Controller
                 'tgl_daftar' => 'required',
                 'homebase' => 'required'
             ]);
+            // $array_name = explode(' ',$request->nama);
+            // dd(strtolower($array_name[0]).date('dmY',strtotime(Tanggal::convert_tanggal($request->tgl_lahir))));
             $anggota = new Anggota();
             $anggota->nik = $request->nik;
             $anggota->nama = $request->nama;
@@ -125,7 +128,7 @@ class AnggotaController extends Controller
             $array_name = explode(' ',$request->nama);
             $user = new User();
             $user->email = $request->nik;
-            $user->password = bcrypt(strtolower($array_name[0]).date('dmY',strtotime($anggota->tgl_lahir)));
+            $user->password = Hash::make(strtolower($array_name[0]).date('dmY',strtotime($anggota->tgl_lahir)));
             $user->name = $request->nama;
             $user->username = $request->username;
             $user->save();
