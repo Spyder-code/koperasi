@@ -85,11 +85,20 @@
                 },
                 success: function(data)
                 {
-                    console.log(data)
+                    let wajib = @json(number_format($wajib));
+                    let pokok = @json(number_format($pokok));
                     $('#nama-anggota').text(data.nama)
                     $('#nama-inisial').text(data.inisial)
                     $('#status-anggota').text(data.status)
                     $('#tanggal-daftar').text(data.tgl_daftar)
+                    $('#nominal_biaya_wajib').val('Rp. '+wajib);
+                    $('#nominal_biaya_pokok').val('Rp. '+pokok);
+                    if(data.is_wajib){
+                        $('#nominal_biaya_wajib').val('Rp. 0');
+                    }
+                    if(data.is_pokok){
+                        $('#nominal_biaya_pokok').val('Rp. 0');
+                    }
                 }
             });
         });

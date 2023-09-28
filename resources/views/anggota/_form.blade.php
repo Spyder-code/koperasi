@@ -1,3 +1,21 @@
+@php
+    $jabatan = [
+        'Assistant Manager' => 'Assistant Manager',
+        'Branch Manager' => 'Branch Manager',
+        'Cleaning Service' => 'Cleaning Service',
+        'Finance' => 'Finance',
+        'GA' => 'GA',
+        'HSE' => 'HSE',
+        'IT' => 'IT',
+        'Leader' => 'Leader',
+        'Manager' => 'Manager',
+        'Operator' => 'Operator',
+        'Security' => 'Security',
+        'Supervisor' => 'Supervisor',
+        'Technician' => 'Technician',
+        'Quality Control' => 'Quality Control',
+];
+@endphp
 <div class="form-group row">
     <label class="col-4 col-form-label" for="example-input-normal">NO Anggota</label>
     <div class="col-8">
@@ -78,7 +96,7 @@
 <div class="form-group row">
     <label class="col-4 col-form-label" for="example-input-normal">Jabatan</label>
     <div class="col-8">
-        {{ Form::text('jabatan', null, ['class' => $errors->has('jabatan') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Jabatan']) }}
+        {!! Form::select('jabatan', $jabatan, null, ['class'=>$errors->has('jabatan') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Pilih jabatan']) !!}
         @error('jabatan')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -131,7 +149,7 @@
         @enderror
     </div>
 </div>
-<div class="form-group row">
+{{-- <div class="form-group row">
     <label class="col-4 col-form-label" for="example-input-normal">Password</label>
     <div class="col-8">
         {{ Form::password('password', null, ['class' => $errors->has('password') ? 'form-control is-invalid' : 'form-control']) }}
@@ -141,6 +159,6 @@
             </span>
         @enderror
     </div>
-</div>
+</div> --}}
 <button type="submit" class="btn btn-primary">Simpan</button>
 <a href="{{ route('anggota.index') }}" class="btn btn-help-block">Kembali</a>

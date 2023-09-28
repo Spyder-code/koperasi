@@ -21,6 +21,8 @@ class CreateAnggotasTable extends Migration
             $table->string('tempat_lahir')->nullable();
             $table->string('jabatan')->nullable();
             $table->string('inisial')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('no_rek')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

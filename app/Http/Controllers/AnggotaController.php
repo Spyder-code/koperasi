@@ -104,7 +104,6 @@ class AnggotaController extends Controller
                 'tempat_lahir' => 'required',
                 'jabatan' => 'required',
                 'username' => 'required',
-                'password' => 'required|min:8',
                 'status' => 'required',
                 'tgl_daftar' => 'required',
                 'homebase' => 'required'
@@ -123,9 +122,10 @@ class AnggotaController extends Controller
             $anggota->no_rek = $request->no_rek;
             $anggota->save();
 
+            $array_name = explode(' ',$request->nama);
             $user = new User();
             $user->email = $request->nik;
-            $user->password = bcrypt($request->password);
+            $user->password = bcrypt(strtolower($array_name[0]).date('dmY',strtotime($anggota->tgl_lahir)));
             $user->name = $request->nama;
             $user->username = $request->username;
             $user->save();

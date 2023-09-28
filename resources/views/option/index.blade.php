@@ -52,6 +52,11 @@
                                         <span class="d-none d-md-block">Sosial Media</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span>
                                     </a>
                                 </li>
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link" data-toggle="tab" href="#oprational" role="tab">
+                                        <span class="d-none d-md-block">Oprational</span><span class="d-block d-md-none"><i class="mdi mdi-money h5"></i></span>
+                                    </a>
+                                </li>
                             </ul>
 
                             <!-- Tab panes -->
@@ -358,6 +363,39 @@
                                             {{Form::submit(__('Simpan'),array('class'=>'btn btn-primary'))}}
                                         </div>
                                         {{Form::close()}}
+                                    </div>
+                                </div>
+                                <div class="tab-pane p-3" id="oprational" role="tabpanel">
+                                    <div class="row">
+                                        <form action="{{ route('option.update',1) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="form-group col">
+                                                        {{Form::label('simpanan_pokok',__('Simpanan Pokok')) }}
+                                                        {{Form::text('simpanan_pokok',$simpanan_pokok->option_value,array('class'=>'form-control font-style'))}}
+                                                        @error('simpanan_pokok')
+                                                        <span class="invalid-simpanan_pokok" role="alert">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        {{Form::label('simpanan_wajib',__('Simpanan Wajib')) }}
+                                                        {{Form::text('simpanan_wajib',$simpanan_wajib->option_value,array('class'=>'form-control font-style'))}}
+                                                        @error('simpanan_wajib')
+                                                        <span class="invalid-simpanan_wajib" role="alert">
+                                                            <strong class="text-danger">{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                {{Form::submit(__('Simpan'),array('class'=>'btn btn-primary'))}}
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

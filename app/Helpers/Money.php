@@ -6,7 +6,7 @@ class Money {
 
     public static function rupiahToString($rp)
     {
-        $result = substr(str_replace(".", "", $rp), 3);
+        $result = substr(str_replace(['.',','], "", $rp), 3);
         return $result;
     }
 

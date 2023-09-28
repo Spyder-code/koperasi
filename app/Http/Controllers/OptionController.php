@@ -27,11 +27,23 @@ class OptionController extends Controller
         if (\Auth::user()->isAbleTo('manage-option')) {
             # code...
             $option = Option::options();
-            return view('option.index', compact('option'));
+            $simpanan_pokok = Option::find(17);
+            $simpanan_wajib = Option::find(18);
+            return view('option.index', compact('option','simpanan_pokok','simpanan_wajib'));
         } else {
             # code...
             return redirect()->back()->with('error', __('Permission denied.'));
         }
+    }
+
+    public function update(Request $request, Option $option){
+        Option::find(17)->update([
+            'option_value' => $request->simpanan_pokok
+        ]);
+        Option::find(18)->update([
+            'option_value' => $request->simpanan_wajib
+        ]);
+        return redirect()->back()->with('success', 'Options successfully updated.');
     }
 
     /**

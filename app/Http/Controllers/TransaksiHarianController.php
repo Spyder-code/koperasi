@@ -222,9 +222,15 @@ class TransaksiHarianController extends Controller
             }
             $anggota->tgl_daftar = Tanggal::tanggal_id($anggota->tgl_daftar);
             $pinjaman = TransaksiPinjaman::where('anggota_id',$request->anggota_id)->where('status',0)->get();
+            $array_transaksi = TransaksiHarianAnggota::where('anggota_id',$request->anggota_id)->pluck('transaksi_harian_id')->toArray();
+            $bulan = TransaksiHarian::whereIn('id',$array_transaksi)->whereMonth('tgl',date('m'))->whereYear('tgl',date('Y'))->pluck('id')->toArray();
+            $is_pokok = TransaksiHarianBiaya::whereIn('transaksi_harian_id',$array_transaksi)->where('biaya_id',1)->first();
+            $is_wajib = TransaksiHarianBiaya::whereIn('transaksi_harian_id',$bulan)->where('biaya_id',2)->first();
             return response()->json([
                 'anggota' => $anggota,
-                'pinjaman' => $pinjaman
+                'pinjaman' => $pinjaman,
+                'is_pokok' => $is_pokok,
+                'is_wajib' => $is_wajib,
             ]);
         }
     }

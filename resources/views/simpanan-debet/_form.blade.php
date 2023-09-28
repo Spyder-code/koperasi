@@ -69,21 +69,21 @@
                 <label for="Pokok" class="control-label">Pokok</label>
                 <div class="">
                     <input type="hidden" class="form-control" name="id_biaya_pokok" value="1">
-                    <input type="text" class="form-control biaya" name="nominal_biaya_pokok" value="{{ old('nominal_biaya_pokok', $nominal_biaya_pokok ?? null) }}">
+                    <input type="text" class="form-control" id="nominal_biaya_pokok" readonly name="nominal_biaya_pokok" value="{{ old('nominal_biaya_pokok', $nominal_biaya_pokok ?? 'Rp. '.number_format($pokok)) }}">
                 </div>
             </div>
             <div class="form-group clearfix">
                 <label for="Pokok" class="control-label">Wajib</label>
                 <div class="">
                     <input type="hidden" class="form-control" name="id_biaya_wajib" value="2">
-                    <input type="text" class="form-control biaya" name="nominal_biaya_wajib" value="{{ old('nominal_biaya_wajib', $nominal_biaya_wajib ?? null) }}">
+                    <input type="text" class="form-control" id="nominal_biaya_wajib" readonly name="nominal_biaya_wajib" value="{{ old('nominal_biaya_wajib', $nominal_biaya_wajib ?? 'Rp. '.number_format($wajib)) }}">
                 </div>
             </div>
             <div class="form-group clearfix">
                 <label for="Pokok" class="control-label">Sukarela</label>
                 <div class="">
                     <input type="hidden" class="form-control" name="id_biaya_sukarela" value="3">
-                    <input type="text" class="form-control biaya" id="nominal_biaya_sukarela" name="nominal_biaya_sukarela" value="{{ old('nominal_biaya_sukarela', $nominal_biaya_sukarela ?? null) }}">
+                    <input type="text" class="form-control biaya" id="nominal_biaya_sukarela" name="nominal_biaya_sukarela" value="{{ old('nominal_biaya_sukarela', $nominal_biaya_sukarela ?? 'Rp. 0') }}">
                 </div>
             </div>
             <div class="form-group clearfix">

@@ -17,6 +17,7 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Pembukuan;
 use App\Models\Anggota;
+use App\Models\Option;
 use App\Models\TransaksiSimpanan;
 use Illuminate\Support\Carbon;
 
@@ -105,7 +106,9 @@ class SimpananDebetController extends Controller
         //
         if (\Auth::user()->isAbleTo('create-debet-simpanan')) {
             # code...
-            return view('simpanan-debet.create');
+            $pokok = Option::find(17)->option_value;
+            $wajib = Option::find(18)->option_value;
+            return view('simpanan-debet.create',compact('wajib','pokok'));
         } else {
             # code...
             return redirect()->back()->with('error', __('Permission denied.'));
@@ -130,7 +133,6 @@ class SimpananDebetController extends Controller
                 'divisi_id' => 'required',
                 'jenis_transaksi' => 'required'
             ]);
-
             $file_name = date('ymdhis').'.jpg';
             if($request->file('file')){
                 $request->file('file')->storeAs('public/transaksi/', $file_name);
